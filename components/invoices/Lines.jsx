@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { showError } from "../ui/alerts"
-import ProductSkeleton from "./ProductSkeleton"
-import ProductBox from "./ProductBox"
+import LineSkeleton from "./LineSkeleton"
+import Line from "./Line"
 
-function ProductList({lines}) {
+function Lines({lines}) {
 
   const [products, setProducts] = useState([])
   const [load, setLoad] = useState(false)
@@ -44,15 +44,18 @@ function ProductList({lines}) {
   }
   if (load) {
     return(
-      <ProductSkeleton count={lines.total_count} />
+      <div className="flexbox-column full-width" style={{ gap: 10, marginTop: 10 }}>
+        <LineSkeleton count={lines.total_count} />
+      </div>
     )
-  } else
+  }
   return (
     <>
       <div className="flexbox-column full-width" style={{ gap: 10, marginTop: 10 }}>
+      {/* <LineSkeleton count={1} /> */}
       {
         products.map( (product,i) => {
-          return <ProductBox key={i} product={product} />
+          return <Line key={i} product={product} />
         })
       }
       </div>
@@ -60,4 +63,4 @@ function ProductList({lines}) {
   );
 }
 
-export default ProductList;
+export default Lines;

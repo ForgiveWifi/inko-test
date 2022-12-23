@@ -6,7 +6,7 @@ import ShippingBox from "./ShippingBox";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import ShippingBoxSkeleton from "./ShippingBoxSkeleton";
-import ProductList from "./ProductList";
+import Lines from "./Lines";
 import StatusBox from "./StatusBox";
 import toDollars from "../../lib/toDollars";
 import InvoiceButtons from "./InvoiceButtons";
@@ -55,7 +55,7 @@ function InvoiceDisplay({invoice}) {
 
         <HorzDivider />
 
-        <ProductList lines={lines} />
+        <Lines lines={lines} />
 
         <div className="flexbox-column" style={{margin: "10px 22px 0px auto"}}>
           <h5 className="margin-left">Total:</h5>

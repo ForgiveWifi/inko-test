@@ -8,6 +8,7 @@ import CloseButton from "../../components/ui/CloseButton";
 import Loading from "../../components/ui/Loading";
 import { showError } from "../../components/ui/alerts";
 import AddIcon from '@mui/icons-material/Add';
+import Heading from '../../components/ui/Heading';
 
 function Tags() { 
 
@@ -42,9 +43,9 @@ function Tags() {
   return (
     <>
       {loading && <Loading />}
-      <div className='flexbox-column'>
+      <div className='flexbox-column full-width'>
+        <Heading text="Neck Tags" />
         <div className='full-width'>
-          <h1 style={{ marginBottom: 20}}>Neck Tags</h1>
           { missingTags.length !== 0 ? <Button onClick={() => setOpen(true)} leftIcon={<AddIcon/>} uppercase>add tag</Button> : null}
         </div>
         <TagList tags={tags} toggleChange={toggleChange}/>

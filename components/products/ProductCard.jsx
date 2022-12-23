@@ -25,7 +25,7 @@ function ProductCard({product, select}) {
         }
         <img 
           onLoad={() => setLoaded(true)} 
-          className="radius10 shadow2" 
+          className="radius10" 
           src={product.images[0]} 
           style={ loaded ? { width: "100%" } : { display: "none"} }
         />

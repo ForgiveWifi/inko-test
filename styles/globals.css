@@ -154,7 +154,7 @@ button:hover {
 }
 
 .grey-text {
-  color: rgba(107, 116, 130, 0.5);
+  color: rgba(107, 116, 130, 0.75);
 }
 
 .light-grey-text {
@@ -235,8 +235,8 @@ button:hover {
   width: 100%
 }
 
-.half-width {
-  width: 50%
+.full-height {
+  height: 100%
 }
 
 .radius5 {

@@ -10,6 +10,7 @@ import Loading from "../../../components/ui/Loading";
 import ProductDisplay from '../../../components/products/ProductDisplay';
 import CloseButton from '../../../components/ui/CloseButton';
 import { useRouter } from 'next/router';
+import Heading from '../../../components/ui/Heading';
 
 function Products() {
 
@@ -55,11 +56,9 @@ function Products() {
           null
         }
       </Modal>
-      <div className="full-width" style={{ margin: 40}}>
-        <h1 className="full-width">Products</h1>
-        <ProductList products={products} setSelected={setSelected}/>
-        {/* <MyPagination loading={loading} currentPage={currentPage} setPageNumber={setPageNumber} totalPages={totalPages}  /> */}
-      </div>
+      <Heading text="Products" />
+      <ProductList products={products} setSelected={setSelected}/>
+      {/* <MyPagination loading={loading} currentPage={currentPage} setPageNumber={setPageNumber} totalPages={totalPages}  /> */}
     </>
   );
 }

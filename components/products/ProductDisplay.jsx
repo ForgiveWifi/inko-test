@@ -22,16 +22,15 @@ function ProductDisplay({loading, product}) {
   return (
     <>
       {loading && <Loading /> }
-      <div className="flexbox-row-start full-width flex-wrap" style={{ padding: "0px 30px 10px", marginTop: 40, gap: 20 }}>
+      <div className="flexbox-row-start full-width flex-wrap" style={{ padding: "0px 30px 10px", marginTop: 30, gap: 20 }}>
         <div className="flexbox-column" style={{ gap: 10}}>
           <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/>
           <Button onClick={() => downloadImage(images[currentSlide])} className="margin-left" leftIcon={<TbDownload style={{ fontSize: 20}} />}> Download</Button>
         </div>
 
         <div className="flexbox-column-start" style={{ margin: 0}}>
-          <h1 style={{ fontSize: "45px"}}>
-            {name}
-          </h1>
+          <h1 style={{ fontSize: "45px"}}>{name}</h1>
+          <div>{description}</div>
           <div className="flexbox-row" style={{ marginTop: 5, gap: 10}}>
             <h5 style={{ marginTop: 2}}>ID: {product._id}</h5>
             <CopyID text="Copy ID" value={_id} />
@@ -45,8 +44,8 @@ function ProductDisplay({loading, product}) {
             </div>
           </div>
 
-        <HorzDivider/>
-          <div>{description}</div>
+        <HorzDivider />
+          
 
           <div style={{ marginTop: 15}}>
             <h5>color</h5> 

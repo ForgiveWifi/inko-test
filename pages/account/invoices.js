@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { showError } from '../../components/ui/alerts';
 import { Button, Modal } from '@mantine/core';
 import CloseButton from '../../components/ui/CloseButton';
+import Heading from '../../components/ui/Heading';
 
 function Invoices() {
 
@@ -47,6 +48,7 @@ function Invoices() {
           null
         }
       </Modal>
+      <Heading text="Invoices" />
       <InvoicesHeading />
       <InvoiceList loading={loading} invoices={invoices} setSelected={setSelected}/>
       {/* <MyPagination loading={loading} currentPage={currentPage} totalPages={totalPages} setPageNumber={setPageNumber} /> */}

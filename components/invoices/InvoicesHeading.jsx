@@ -9,9 +9,6 @@ function InvoicesHeader() {
 
   return (
     <>
-      <div className="flexbox-column full-width" style={{ marginTop: 30}}> 
-        <h1 className="full-width">Invoices</h1>
-
         {/* <div className="flexbox-row full-width flex-wrap" style={{ marginTop: 15}}>
 
           <Button onClick={() => navigate("new")} leftIcon={<AddIcon />}>New Invoice</Button>
@@ -23,18 +20,16 @@ function InvoicesHeader() {
             </Button>
           </div>
         </div> */}
+      <div className="flexbox-column full-width " style={{ marginTop: "10px", padding: "0px 18px"}}>
+        <div className="flexbox-row full-width space-between">
+          <h5 className="text-center" style={{width: 90}}> status</h5>
+          <h5 className="text-center" style={{ width: 300}}>ID</h5>
+          <h5 className="text-center" style={{ width: 100}}>total</h5>
+          <h5 className="text-center" style={{ width: 70}}>items</h5>
+          <h5 className="text-center" style={{ width: 100}}>due date</h5>
+        </div>
         
-        <div className="flexbox-column full-width " style={{ marginTop: "10px", padding: "0px 18px"}}>
-          <div className="flexbox-row full-width space-between">
-            <h5 className="text-center" style={{width: 90}}> status</h5>
-            <h5 className="text-center" style={{ width: 300}}>ID</h5>
-            <h5 className="text-center" style={{ width: 100}}>total</h5>
-            <h5 className="text-center" style={{ width: 70}}>items</h5>
-            <h5 className="text-center" style={{ width: 100}}>due date</h5>
-          </div>
-          
-        </div>  
-      </div>
+      </div>  
     </>
   );
 }
