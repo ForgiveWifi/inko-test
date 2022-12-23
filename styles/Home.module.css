@@ -1,129 +1,115 @@
-.container {
-  padding: 0 2rem;
+.log-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 100vmax;
+  padding: 3px 15px;
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: 0.15s;
+  border: 3px solid white;
 }
 
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.log-button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
 }
 
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+.top-button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	user-select: none;
+  width: 50px;
+	height: 50px;
+	margin-top: 25px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	background-color: transparent;
+	border: 4px solid white;
+	border-radius: 50%;
+	transition: 200ms;
+
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+.top-button svg {
+	fill: white;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	transform: translateX(-50%) translateY(-50%);
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.top-button:before {
+	content: 'Back to Top';
+	position: absolute;
+	transform: translateX(-50%) translateY(30px);
+	font-size: 15px;
+	transition: 200ms;
+	color: transparent;
+	font-weight: bold;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.top-button:hover {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+	width: 55px;
+	height: 55px;
 }
 
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+.top-button:focus {
+	outline: none;
 }
 
-.title,
-.description {
-  text-align: center;
+.top-button:hover::before {
+	color: white;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+.top-button:hover svg {
+	animation: bounce 2s infinite linear;
 }
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+@keyframes bounce {
+	0% {transform: translateX(-50%) translateY(-50%)}
+	25% {transform: translateX(-50%) translateY(-65%)}
+	50% {transform: translateX(-50%) translateY(-50%)}
+	75% {transform: translateX(-50%) translateY(-35%)}
+	100% {transform: translateX(-50%) translateY(-50%)}
 }
 
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+.text-area {
+  color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #FF9244;
+  border-radius: 15px;
+  resize: none;
+  width: 100%;
+  height: 15vh;
+  padding: 5px 8px;
+  overflow: hidden;
+  margin: 0px 5px;
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+.text-area:focus {
+  outline: 0;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.form-button {
+  color: white;
+  background-color: #ff8936;
+  font-size: 25px;
+  font-weight: 700;
+  border: none;
+  padding: 5px 15px;
+  box-shadow: 3px 3px 0 #e96100;
+  transition: 0.12s;
 }
 
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+.form-button:active {
+  box-shadow: 0 0 0 #e96100;
+  transform: translate(3px, 3px);
 }
 
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
+.form-button:hover {
+  background-color: #ffa15f
 }
