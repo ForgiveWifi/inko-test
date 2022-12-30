@@ -17,12 +17,14 @@ function Lines({lines}) {
     async function fetchProducts() {
       try {
         setLoad(true)
-        const product_list = await Promise.all(lines.data.map(async ({quantity, price, amount, description}) => {
-          const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/stripe/${price.product}`)
+        const product_list = await Promise.all(lines.data.map(async ({quantity, price, amount}) => {
+          const res = await axios.get(`${process.env.API_URL}/products/stripe/${price.product}`)
           const { data } = res
-          const { _id, name, images, metadata} = data
+          console.log("price", price)
+          const { name, images, metadata} = data
           return({
             name: name,
+            unit_price: price.unit_amount,
             quantity: quantity,
             amount: amount,
             images: images,
@@ -52,12 +54,12 @@ function Lines({lines}) {
   return (
     <>
       <div className="flexbox-column full-width" style={{ gap: 10, marginTop: 10 }}>
-      {/* <LineSkeleton count={1} /> */}
-      {
-        products.map( (product,i) => {
-          return <Line key={i} product={product} />
-        })
-      }
+        {/* <LineSkeleton /> */}
+        {
+          products.map( (product,i) => {
+            return <Line key={i} product={product} />
+          })
+        }
       </div>
     </>
   );
