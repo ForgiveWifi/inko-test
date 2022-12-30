@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import Image from "./Image"
+import Image from "next/image";
 import ClearIcon from '@mui/icons-material/Clear';
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -61,16 +61,17 @@ function Production() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="flexbox" style={{ maxWidth: '450px', margin: "auto"}}
+            className="flexbox" 
+            style={{ position: "relative", maxWidth: '450px', margin: "auto"}}
           >
-            <Image file="oval_jet_printer.jpg" alt="Oval Jet Printer" width="100%" />
+            <img src="oval_jet_printer.jpg" alt="Oval Jet Printer" className="full-width orange-shadow" style={{ objectFit: "contain" }} />
           </motion.div>
           
 
           <motion.div 
             initial={{ x: 100, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.8 }}
+            transition={{ duration: 1, delay: 0.6 }}
             viewport={{ once: true }}
             className="flexbox-start" 
             style={{ minWidth: "300px", margin: "auto"}}>

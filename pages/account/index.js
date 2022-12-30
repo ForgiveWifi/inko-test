@@ -40,7 +40,7 @@ function Profile() {
     async function getProfile() {
       try {
         setLoading(true)
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/account`)
+        const res = await axios.get(`${process.env.API_URL}/account`)
         const {first_name, last_name, company} = res.data.metadata
         const account = {
           first_name: first_name || "",
@@ -65,7 +65,7 @@ function Profile() {
   async function saveProfile() {
     try {
       showLoading("shipping", null, "Saving...")
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/account`, { 
+      await axios.post(`${process.env.API_URL}/account`, { 
         // address: address,
         shipping: shipping, 
         metadata: profile

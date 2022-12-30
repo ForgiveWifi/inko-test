@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mantine/hooks';
 import { motion } from "framer-motion"
-import Image from "./Image";
+import Image from 'next/image';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ForumIcon from '@mui/icons-material/Forum';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
@@ -84,7 +84,7 @@ function Design() {
           className="flexbox margin-auto" 
           style={{ maxWidth: "410px" }}
         >
-          <Image file="design_and_art.jpg" alt="Design and Art" width="100%" />
+          <img src="design_and_art.jpg" alt="Design and Art" className='full-width orange-shadow' />
         </motion.div>
 
       </div>

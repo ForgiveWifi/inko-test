@@ -1,9 +1,9 @@
-import HomePage from "../components/home-page/HomePage"
-import Production from "../components/home-page/Production"
-import Design from "../components/home-page/Design"
-import HomeProducts from "../components/home-page/HomeProducts"
-import ContactForm from "../components/home-page/ContactForm"
-import ScrollButton from "../components/home-page/ScrollButton"
+import HomePage from "../components/home/HomePage"
+import Production from "../components/home/Production"
+import Design from "../components/home/Design"
+import HomeProducts from "../components/home/HomeProducts"
+import ContactForm from "../components/home/ContactForm"
+import ScrollButton from "../components/home/ScrollButton"
 
 export default function Home() {
   return (

@@ -1,7 +1,6 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { motion } from "framer-motion"
 import { useState } from "react";
-import LogButton from "../ui/LoginButton";
+import LogoutButton from "../ui/LoginButton";
 import MenuButton from "./MenuButton";
 import MenuItem from "./MenuItem";
 import styles from "../../styles/Nav.module.css"
@@ -10,12 +9,10 @@ function MenuIcon() {
   
   const [isOpen, setIsOpen] = useState(false)
 
-  const { logout } = useAuth0()
-
   const navList = [
     {
       name: "profile",
-      to: "/account/profile"
+      to: "/account"
     },
     {
       name: "products",
@@ -35,6 +32,7 @@ function MenuIcon() {
     open: {
       clipPath: `circle(1400px at 210px 38px)`,
       transition: {
+        delay: 0.2,
         type: "spring",
         stiffness: 20,
         restDelta: 2
@@ -77,21 +75,7 @@ function MenuIcon() {
             )
           })
         }
-        {
-          <div className="flexbox">
-            {/* <LogButton name="logout test"/> */}
-            {/* <motion.button 
-              variants={variations}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={isOpen ? () => logout({ returnTo: window.location.origin }) : null} 
-              style={{cursor: isOpen ? "pointer" : "auto", border: "4px solid #FF9244", padding: "5px 20px", borderRadius: 20, marginTop: 5}}
-              disabled={!isOpen}
-            >
-              <div className="orange-text">logout</div>
-            </motion.button>  */}
-          </div>
-        }
+        {/* <LogoutButton /> */}
       </motion.ul>
 
       <MenuButton isOpen={isOpen} setIsOpen={setIsOpen}/>

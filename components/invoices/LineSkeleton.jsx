@@ -8,28 +8,31 @@ function ProductSkeleton({count}) {
       return(
         <div key={i} className="flexbox-row flex-wrap full-width background1 radius15 white-border shadow2" style={{ padding: "15px" }}>
 
-          <Skeleton style={{borderRadius: 10, width: "150px", height: "150px", marginRight: "15px", position: "relative", bottom: "2px" }} />
-
-          <div className="flexbox-column">
-
+          <div style={{ width: 150, height: 150, marginRight: "15px", position: "relative", bottom: "5px" }}>
+            <Skeleton style={{ borderRadius: 10, width: 150, height: 150}} />
+          </div>
+          
+          <div className="flexbox-column-start" style={{gap: 5}}>
             <Skeleton className="radius5" style={{ width: "161px", height: "20px", marginBottom: "5px" }} />
-
-            <div className="flexbox-row">
-              <Skeleton className="radius5" style={{ width: "100px" }} />
-              <Divider />
-              <Skeleton className="radius5" style={{ width: "40px" }} />
-            </div>
-
+            <SkeletonLine />
+            <SkeletonLine />
+            <SkeletonLine />
           </div>
 
-          <div className="no-wrap" style={{ marginLeft: "auto", marginRight: "5px" }}>
-            <Skeleton className="radius5" style={{ width: "110px", height: "20px", position: "relative", bottom: "6px" }} />
+          <div className="margin-left no-wrap" style={{ marginTop: "auto", marginRight: "5px", position: "relative", bottom: "6px" }}>
+            <Skeleton className="radius5" style={{ width: "70px", height: "20px" }} />
           </div>
 
         </div>
       )
     })
   );
+}
+
+function SkeletonLine() {
+  return(
+    <Skeleton className="radius5" style={{ width: "120px" }} />
+  )
 }
 
 export default ProductSkeleton;

@@ -1,23 +1,24 @@
 import { motion } from "framer-motion"
+import Image from "next/image";
 
 function HomeProducts() {
   const productlist = [
     {
       name:"Bella + Canvas",
-      file: "BellaCanvas_3001_White_04.jpg",
+      src: "/BellaCanvas_3001_White_04.jpg",
       alt: "Bella Canvas 3001 White",
       position: "0px -30px",
       link: "https://www.bellacanvas.com/product/3001/Unisex-Jersey-Short-Sleeve-Tee.html"
     },
     // {
     //   name: "Hoodies",
-    //   file: "3719_Vintage-White_SF21_04.jpg",
+    //   src: "3719_Vintage-White_SF21_04.jpg",
     //   alt: "3719 Vintage White SF21",
     //   position: "0px -45px"
     // },
     // {
     //   name: "Tank Tops",
-    //   file: "3480_Athletic-Heather_SPSU22D2_04.jpg",
+    //   src: "3480_Athletic-Heather_SPSU22D2_04.jpg",
     //   alt: "3480 Athletic-Heather SPSU22D2",
     //   position: "0px -20px"
     // }
@@ -38,7 +39,7 @@ function HomeProducts() {
 
         <div className="flexbox-row flex-wrap" style={{ justifyContent: "center", padding: "0px 15px", columnGap: "40px", rowGap: "15px", marginBottom: "30px"}}>
           {
-            productlist.map(({name, file, alt, position, link}) => {
+            productlist.map(({name, src, alt, position, link}) => {
               return(
                 <motion.a
                   href={link} 
@@ -49,25 +50,19 @@ function HomeProducts() {
                   transition={{ duration: 0.7, delay: 0.3 }}
                   viewport={{ once: true }}
                   className="flexbox-column link"
-                ><h5 style={{ height: 25 }}>{name.toUpperCase()} </h5> 
+                >
+                  <h5 style={{ height: 25 }}>{name.toUpperCase()}</h5> 
                   <motion.div
                     whileHover={{ scale: 1.02}}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.3 }}
                   >
-                  <div style={{ position: "relative"}}> 
-                    <div className="product-box radius15" style={{ backgroundColor: "white", top: 0}}></div> 
-                    
-                    <motion.img 
-                      whileHover={{ opacity: 0.8}}
-                      src={`${file}`} 
-                      alt={alt}
-                      className="product-box"
-                      style={{ position: "absolute", top: 0, objectPosition: position, objectFit: "cover" }}
-                    />
-                  </div>
-                    
-                    
+                    <div style={{ position: "relative"}}> 
+                      <div className="radius15" style={{ width: 250, height: 250, backgroundColor: "white", top: 0}}></div> 
+                      <motion.div whileHover={{ opacity: 0.8}}>
+                        <Image src={src} alt={alt} width={250} height={250} className="radius15" style={{ position: "absolute", top: 0, objectFit: "cover", objectPosition: position}} />
+                      </motion.div>
+                    </div>
                   </motion.div>
                 </motion.a>
               )

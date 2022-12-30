@@ -69,6 +69,14 @@ button:hover {
   cursor: pointer;
 }
 
+label {
+  color: #FF9244;
+  font-size: 14;
+  padding-left: 10px;
+  position: relative;
+  top: 1px;
+}
+
 .label {
   font-size: 14px;
   font-weight: 500;
@@ -158,7 +166,7 @@ button:hover {
 }
 
 .light-grey-text {
-  color: rgb(107, 116, 130)
+  color: rgb(201, 201, 201)
 }
 
 .orange-text {
@@ -169,8 +177,12 @@ button:hover {
   border: 3px solid white
 }
 
+.white-outline {
+  outline: 3px solid white
+}
+
 .black-border {
-  border: 3px solid black;
+  outline: 4px solid black;
 }
 
 .text-center {
@@ -199,12 +211,13 @@ button:hover {
 }
 
 .flexbox-row-start {
-  display: flex
+  display: flex;
+  align-items: flex-start
 }
 
 .flexbox-row-end {
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .flexbox-column-start {
@@ -302,17 +315,10 @@ button:hover {
   margin: 8px
 }
 
-.product-box {
-  width: 250px;
-  height: 250px;
-  border-radius: 15px
-}
-
 .product-grid{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  row-gap: 35px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
   width: 100%;
 }
 
@@ -320,6 +326,26 @@ button:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, 1fr);
   grid-gap: 15px
+}
+
+.orange-button {
+  color: white;
+  background-color: #ff8936;
+  font-size: 25px;
+  font-weight: 700;
+  border: none;
+  padding: 5px 15px;
+  box-shadow: 4px 4px 0 #e96100;
+  transition: 0.12s;
+}
+
+.orange-button:active {
+  box-shadow: 0 0 0 #e96100;
+  transform: translate(4px, 4px);
+}
+
+.orange-button:hover {
+  background-color: #ffa15f
 }
 
 .confirm-button {
@@ -337,6 +363,7 @@ button:hover {
 .confirm-button:hover {
   background-color: rgb(34, 195, 34)
 }
+
 .position-button {
   font-size: 200;
   background-color: rgb(107, 116, 130);
@@ -356,11 +383,16 @@ button:hover {
   transform: scale(0.98);
 }
 
+.orange-shadow {
+  outline: 4px solid black;
+  border-radius: 1.5vh;
+  box-shadow: 10px 10px #ff6a00
+}
+
 
 
 .mantine-Modal-modal{
   background-color: #FF9244;
-  padding: 40px
 }
 
 .mantine-Input-input{

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import Image from "./Image";
+import Image from "next/image";
 import { useMediaQuery } from '@mantine/hooks';
 
 function HomePage() {
@@ -30,20 +30,22 @@ function HomePage() {
           </div>
         </div>
 
-        <div className="flexbox-row-start full-width flex-wrap" style={{ maxWidth: 550, marginLeft: desktop ? 0 : "auto"}}>
-          <div style={{position: 'relative', top: tablet ? 100 : desktop ? 70 : 140, width: "50%"}}>
-            <Image file="BellaCanvas_3001_ChangeColor_03.jpg" alt="Bella Canvas 3001 White" width="100%" />
+        <div className="full-width flex-wrap" style={{ maxWidth: 550, display: 'grid', gridTemplateColumns: "1fr 1fr", gap: 20, marginLeft: desktop ? 0 : "auto"}}>
+          <div style={{position: 'relative', top: "33%"}}>
+            <img src="BellaCanvas_3001_ChangeColor_03.jpg" alt="Bella Canvas 3001 White" className="orange-shadow full-width"/>
           </div>
 
-          <div className="flexbox" style={{ width: "40%", margin: "auto 0px 4% 4%"}}>
-            <Image file="BellaCanvas_3001_ChangeColor_01.jpg" alt="BellaCanvas 3001 Purple" width="100%" />
+          <div className="flexbox" style={{ paddingRight: "15%", marginTop: "auto"}}>
+            <img src="BellaCanvas_3001_ChangeColor_01.jpg" alt="BellaCanvas 3001 Purple" className="orange-shadow full-width"/>
           </div>
 
-          <div className="margin-left" style={{ width: "46%" }}>
-            <Image 
-              file="3501_Citron_3513_Grey-Triblend_3501CVC_Athletic-Heather_SPSU22D4_Split_03.jpg" 
+          <div></div>
+
+          <div className="margin-left">
+            <img 
+              src="3501_Citron_3513_Grey-Triblend_3501CVC_Athletic-Heather_SPSU22D4_Split_03.jpg" 
               alt="3501 Citron, 3513 Grey-Triblend, 3501CVC Athletic-Heather" 
-              width="100%" 
+              className="orange-shadow full-width"
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
-function HorzDivider({width}) {
+function HorzDivider({width, margin}) {
   return (
-    <div style={{ width: width || "100%", backgroundColor: "white", height: "2px", borderRadius: "1px" }}></div>
+    <div style={{ width: width || "100%", backgroundColor: "white", height: "2px", borderRadius: "1px", margin: margin ? margin : null }}></div>
   );
 }
 

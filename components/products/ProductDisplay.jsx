@@ -10,6 +10,7 @@ import { TbDownload } from "react-icons/tb"
 import ProductCarousel from "./ProductCarousel";
 import { useState } from "react";
 import HorzDivider from "../ui/HorzDivider";
+import InfoIcon from "../ui/InfoIcon";
 
 function ProductDisplay({loading, product}) {
 
@@ -18,19 +19,45 @@ function ProductDisplay({loading, product}) {
   if (!product) {
     return <Loading />
   } else {
-  const { _id, name, description, sizes, images, created_at,} = product
+  const { _id, name, color, style, description, sizes, images, created_at,} = product
   return (
     <>
       {loading && <Loading /> }
-      <div className="flexbox-row-start full-width flex-wrap" style={{ padding: "0px 30px 10px", marginTop: 30, gap: 20 }}>
-        <div className="flexbox-column" style={{ gap: 10}}>
-          <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/>
-          <Button onClick={() => downloadImage(images[currentSlide])} className="margin-left" leftIcon={<TbDownload style={{ fontSize: 20}} />}> Download</Button>
-        </div>
-
-        <div className="flexbox-column-start" style={{ margin: 0}}>
-          <h1 style={{ fontSize: "45px"}}>{name}</h1>
+      <div className="flexbox-column flex-wrap" style={{ width: "100%", maxWidth: 500, gap: 10, marginTop: 20, padding: 30 }}>
+        
+        <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/>
+          
+        <div className="flexbox-column-start full-width">
+          <div className="flexbox-row-start">
+            <h1 style={{ fontSize: "45px", marginBottom: 10}}>{name}</h1>
+            {/* <button className="flexbox background1 radius5 margin-left" style={{ padding: "5px 12px"}}>
+              <TbDownload style={{ fontSize: 25}} />
+            </button> */}
+          </div>
           <div>{description}</div>
+          <h5>color:</h5> 
+          <div>{color}</div>
+          <h5>style:</h5> 
+          <div>{style}</div>
+          <h5>sizes:</h5>
+          <div className="flexbox-column-start">
+          {/* <HorzDivider /> */}
+            {sizes.map((size, i) => {
+              return(
+                <div className="flexbox-row">
+                  
+                  <div>{size}</div>
+                    <Divider />
+                  <div className="flexbox-row">
+                    <h5>$</h5>
+                    <h5>---</h5>
+                    <InfoIcon />
+                  </div>
+                </div>
+              )
+            })}
+          {/* <HorzDivider /> */}
+          </div>
           <div className="flexbox-row" style={{ marginTop: 5, gap: 10}}>
             <h5 style={{ marginTop: 2}}>ID: {product._id}</h5>
             <CopyID text="Copy ID" value={_id} />
@@ -43,33 +70,10 @@ function ProductDisplay({loading, product}) {
                 <h5>{toTime(created_at)}</h5>
             </div>
           </div>
-
-        <HorzDivider />
-          
-
-          <div style={{ marginTop: 15}}>
-            <h5>color</h5> 
-            <div>{product.color}</div>
-            <h5>style</h5> 
-            <h5>available sizes</h5>
-            {/* <SizeList sizes={sizes} /> */}
-            {sizes.map((size, i) => {
-              return(
-                <div className="flexbox-row">
-                  <div>{size}</div>
-                    <Divider />
-                  <div>cost</div>
-                </div>
-              )
-            })}
-            
-          </div>
-
-          
         </div>
-        
+        <DesignList designs={product.designs}/>
       </div>
-      <DesignList designs={product.designs}/>
+      
     </>
   )};
 }

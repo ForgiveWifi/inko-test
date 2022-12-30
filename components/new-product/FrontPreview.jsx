@@ -5,7 +5,8 @@ function FrontPreview({currentImage, makeCurrentImage, color, zIndex, frontImage
     <>
       <div id="front-preview" className="flexbox" style={{ position: "absolute", zIndex: zIndex, width: 650, height: 650}}>
         <div style={{ position: "absolute", backgroundColor: color.hex, width: "630px", height: "630px"}}></div>
-        <img src={"/front-blank-tee.png"} 
+        <img 
+          src={"/front-blank-tee.png"} 
           alt="front-blank-tee" className="radius15" 
           style={{ position: "absolute", width: 650, height: 650, filter: color.light ? null : "brightness(200%)"}}
           draggable="false" 
@@ -22,7 +23,7 @@ function FrontPreview({currentImage, makeCurrentImage, color, zIndex, frontImage
           {
             frontImages.map((design, i) => {
               return(
-                <SingleImage key={i} design={design} isImage={currentImage.image} selectImage={() => makeCurrentImage(design)} light={color.light} />
+                <SingleImage key={i} design={design} isImage={currentImage.art_file} selectImage={() => makeCurrentImage(design)} light={color.light} />
               )
             })
           }

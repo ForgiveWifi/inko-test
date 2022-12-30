@@ -14,6 +14,37 @@
   cursor: pointer;
 }
 
+.input-field {
+  color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #FF9244;
+  border-radius: 12px;
+  text-indent: 10px;
+  padding-right: 5px;
+  font-size: 14px;
+  height: 45px;
+  margin-bottom: 5px
+}
+
+.input-field:focus {
+  outline: 0;
+}
+
+.text-area {
+  color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #FF9244;
+  border-radius: 15px;
+  resize: none;
+  width: 100%;
+  height: 15vh;
+  padding: 5px 8px;
+  overflow: hidden;
+  margin: 0px 5px;
+}
+
+.text-area:focus {
+  outline: 0;
+}
+
 .top-button {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -76,40 +107,4 @@
 	50% {transform: translateX(-50%) translateY(-50%)}
 	75% {transform: translateX(-50%) translateY(-35%)}
 	100% {transform: translateX(-50%) translateY(-50%)}
-}
-
-.text-area {
-  color: rgba(0, 0, 0, 0.6);
-  border: 3px solid #FF9244;
-  border-radius: 15px;
-  resize: none;
-  width: 100%;
-  height: 15vh;
-  padding: 5px 8px;
-  overflow: hidden;
-  margin: 0px 5px;
-}
-
-.text-area:focus {
-  outline: 0;
-}
-
-.form-button {
-  color: white;
-  background-color: #ff8936;
-  font-size: 25px;
-  font-weight: 700;
-  border: none;
-  padding: 5px 15px;
-  box-shadow: 3px 3px 0 #e96100;
-  transition: 0.12s;
-}
-
-.form-button:active {
-  box-shadow: 0 0 0 #e96100;
-  transform: translate(3px, 3px);
-}
-
-.form-button:hover {
-  background-color: #ffa15f
 }

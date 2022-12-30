@@ -22,12 +22,14 @@ export function ImageUpload({currentImage, setCurrentImage, open, close}) {
       withCloseButton={false}
       radius={15}
       centered
+      overlayBlur={3} 
+      transitionDuration={300}
     >
       <Dropzone
         name='File Upload'
         openRef={openRef}
         onDrop={(file) => {
-          setCurrentImage({...currentImage, image: file[0]})
+          setCurrentImage({...currentImage, art_file: file[0]})
           cleanNotifications()
           close()
         }}
@@ -38,38 +40,39 @@ export function ImageUpload({currentImage, setCurrentImage, open, close}) {
         maxSize={10 * 1024 ** 2}
         style={{ marginBottom: "20px"}}
       >
-        <div style={{ pointerEvents: 'none' }}>
+        <div style={{ pointerEvents: 'none', padding: 15 }}>
           <Group position="center">
             <Dropzone.Accept>
-              <DownloadIcon style={{fontSize: "100px", fill: "rgb(88, 169, 255)"}}/>
+              <DownloadIcon style={{fontSize: "80px", fill: "rgb(88, 169, 255)"}}/>
             </Dropzone.Accept>
             <Dropzone.Reject>
-              <CloseIcon style={{fontSize: "100px", fill: "rgb(255, 81, 81)"}}/>
+              <CloseIcon style={{fontSize: "80px", fill: "rgb(255, 81, 81)"}}/>
             </Dropzone.Reject>
             <Dropzone.Idle>
-              <BackupIcon style={{fontSize: "100px", fill: "rgb(107, 116, 130)"}}/>
+              <BackupIcon style={{fontSize: "80px", fill: "rgb(107, 116, 130)"}}/>
             </Dropzone.Idle>
           </Group>
 
             <Dropzone.Accept>
-              <h4 className="orange-text text-center">Drop Image</h4>
+              <h3 className="grey-text text-center" style={{ marginTop: 15}}>Drop Image</h3>
             </Dropzone.Accept>
             <Dropzone.Reject>
-              <h4 className="orange-text text-center">Image file less than 10mb</h4>
+              <h3 className="grey-text text-center" style={{ marginTop: 15}}>Image file less than 10mb</h3>
             </Dropzone.Reject>
             <Dropzone.Idle>
-              <h4 className="orange-text text-center">Upload Image</h4>
+              <h3 className="grey-text text-center" style={{ marginTop: 15}}>Upload Image</h3>
             </Dropzone.Idle>
 
-          <Text align="center" size="sm" mt="xs" color="dimmed" style={{ marginBottom: "20px"}}>
-            Select or drop. We reccomend .png and .jpeg @300dpi that
-            are less than 10mb.  You must own rights to images.
-          </Text>
+          <div className='flexbox-column' style={{ margin: "10px 0px 10"}}>
+          <div className='text-center light-grey-text' style={{ fontSize: 16, fontWeight: 500 }}>
+             We reccomend .png and .jpeg @300dpi.  You must own rights to images.
+          </div>
+          </div>
         </div>
       </Dropzone>
 
       <div className="flexbox full-width">
-        <button className="white-background max-radius" style={{ position: "absolute", bottom: "18px", padding: "8px 25px"}} onClick={() => openRef.current?.()}>
+        <button className="max-radius" style={{ backgroundColor: "rgb(107, 116, 130)", position: "absolute", bottom: "18px", padding: "8px 25px"}} onClick={() => openRef.current?.()}>
           <div>Select file</div>
         </button>
       </div>

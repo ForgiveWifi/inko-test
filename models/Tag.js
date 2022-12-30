@@ -19,6 +19,10 @@ const PlacementSchema = Schema({
     type: String,
     required: true,
   },
+  thumbnail_url: {
+    type: String,
+    required: true,
+  },
   underbase: {
     type: Boolean,
     required: true,
@@ -52,6 +56,10 @@ const TagSchema = Schema({
   tags: [{
     _id: false,
     size: {
+      type: String,
+      required: true
+    },
+    pallet: {
       type: String,
       required: true
     },

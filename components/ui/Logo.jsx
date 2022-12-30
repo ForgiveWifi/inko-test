@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 function Logo() {
   return (
     <>
-      <img src="/inkhouse-white.png" alt="Inkhouse Logo" style={{ height: "40px" }} />
+      <Image src="/inkhouse-white.png" alt="Inkhouse Logo" width={135} height={40}/>
     </>
   );
 }

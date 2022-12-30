@@ -71,7 +71,7 @@ export const colors = [
   },
   {
     value: "Orange",
-    hex: "#ECA05D",
+    hex: "#F28C28",
     light: true
   },
   {

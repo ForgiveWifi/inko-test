@@ -38,7 +38,7 @@ function MenuItem({isOpen, setIsOpen, name, to}) {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
-        <Link href={name}>
+        <Link href={to}>
           <div className="orange-text">{name}</div>
         </Link>
       </motion.div>

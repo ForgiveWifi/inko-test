@@ -5,8 +5,8 @@ function PageLayout({children}) {
   return (
     <>
       <div className="page-background orange-background flexbox-column">
+      <Navbar />
         <div className="page-content flexbox-column full-width">
-          <Navbar />
           { children }
         </div>
       </div>

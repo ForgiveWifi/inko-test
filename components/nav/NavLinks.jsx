@@ -23,8 +23,8 @@ function NavLinks() {
     return(
       <div className='flexbox-row' style={{ gap: 5}}>
         <Link href="/account/products"><Button>products</Button></Link>
-        <Link href="/account/invoices"><Button>invoices</Button></Link>
         <Link href="/account/tags"><Button>tags</Button></Link>
+        <Link href="/account/invoices"><Button>invoices</Button></Link>
         <motion.div
           whileHover={{scale: 1.05}}
           whileTap={{ scale: 0.97 }}>
@@ -33,6 +33,7 @@ function NavLinks() {
           </Link> 
         </motion.div>
         <LogoutButton /> 
+        {/* <MenuIcon />  */}
       </div>
     );
   }

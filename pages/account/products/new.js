@@ -1,22 +1,23 @@
 import { useState } from "react"
+import { useUser } from '@auth0/nextjs-auth0/client'
 import axios from "axios";
 import { Button } from "@mantine/core";
+import { useMediaQuery } from '@mantine/hooks';
+import formatDesign from "../../../lib/formatDesign";
 import AttributesSelect from "../../../components/new-product/AttributesSelect";
 import ProductDetails from "../../../components/new-product/ProductDetails";
 import { showError, showLoading, updateSuccess, updateError } from '../../../components/ui/alerts'
-import BackButton from "../../../components/ui/BackButton";
+import NoBox from "../../../components/ui/NoBox.jsx";
 import ProductPreview from "../../../components/new-product/ProductPreview";
 import AddIcon from '@mui/icons-material/Add';
-import ConfirmModal from "../../../components/new-product/ConfirmModal.jsx";
-import formatDesign from "../../../lib/formatDesign";
-import html2canvas from "html2canvas";
-import { useMediaQuery } from '@mantine/hooks';
-import NoBox from "../../../components/ui/NoBox.jsx";
-import { uploadFirebase } from "../../../lib/firebaseFunctions";
+// import ConfirmModal from "../../../components/new-product/ConfirmModal.jsx";
+import { uploadFirebase, screenshot } from "../../../lib/firebaseFunctions";
+import { deleteObject } from "firebase/storage";
 
 function NewProduct() {
 
-  const mobile = useMediaQuery('(min-width: 890px)')
+  const { user } = useUser()
+  const mobile = useMediaQuery('(min-width: 670px)')
 
   const [currentImage, setCurrentImage] = useState({ placement: "front", width: 200, x_offset: 60, y_offset:0})
   const [sizes, setSizes] = useState([])
@@ -52,8 +53,8 @@ function NewProduct() {
 
   async function submitProduct() {
     try {
-      const {previews, design_data} = await uploadAllFirebase()
-      await postProduct(previews, design_data)
+      const {previews, design_data, refs} = await uploadAllFirebase()
+      await postProduct(previews, design_data, refs)
       setError(false)
       setSizes([])
       setAttributes({style: "3001", color: { value: "White", hex: "white", light: true }})
@@ -63,68 +64,68 @@ function NewProduct() {
     catch (err) {
     }
   }
+
   async function uploadAllFirebase() {
     try {
       showLoading("firebase", null, "Uploading images...")
-      const previews = await uploadProductImages()
-      const design_data = await uploadImageList(imageList)
+      const previews = await uploadPreviews()
+      console.log("preview done")
+      console.log("uploading images")
+      const { design_data, refs } = await uploadImages(previews)
       updateSuccess("firebase", null, "Uploaded images!")
-      return({ previews, design_data })
+      return({ previews, design_data, refs })
     }
     catch (err) {
       updateError("firebase", "Server Error: firebase", "Contact us!")
     }
   }
-
-  async function screenshot(id) {
-    const canvas = await html2canvas(document.getElementById(id))
-    const screenshot = await new Promise((resolve) => canvas.toBlob(async function(blob) {
-      const image = new Image()
-      image.src = blob
-      const name = `${details.name}-${id}`
-      const res = await uploadFirebase(id, name, image)
-      resolve(res)
-    })); 
-    return(screenshot)
-  }
-
-  async function uploadProductImages() {
+  async function uploadPreviews() {
     const previews = []
     if (frontImages.length !== 0) {
-      const front = await screenshot("front-preview")
+      const front = await screenshot(user, "front-preview", details.name)
       previews.push({
+        ...front,
         position: "front",
-        image: front
       })
     } 
     if (backImages.length !== 0) {
-      const back = await screenshot("back-preview")
+      const back = await screenshot(user, "back-preview", details.name)
       previews.push({
-        position: "back",
-        image: back
+        ...back,
+        position: "back"
       })
     }
-    console.log("uploaded previews")
     return(previews)
   }
 
-  async function uploadImageList() {
-    const design_data = await Promise.all(imageList.map( design => uploadImage(design)))
-    return (design_data)
+  async function uploadImages(previews) {
+    const front = previews[0]
+    const back = previews[1]
+    const art_list = await Promise.all(imageList.map( design => uploadImage(design)))
+    const refs = previews.map(preview => preview.ref).concat(art_list.map(art => art.ref))
+    const design_data = art_list.map(art => art.design)
+    return({design_data, refs})
+
+    async function uploadImage(design) {
+      const { art_file } = design
+      console.log("uploading" + art_file)
+      const art = await uploadFirebase(user, "art", art_file.name, art_file)
+      const { name, url, ref } = art
+      return({
+        design: {
+          ...design,
+          art_file: name,
+          art_url: url,
+          thumbnail_url: design.placement === "front" ? front : back,
+        },
+        ref: ref
+      })
+    }
   }
 
-  async function uploadImage(design) {
-    const art = await uploadFirebase("art", design.image.name, design.image)
-    return({
-      ...design,
-      image: null,
-      art_file: art.name,
-      art_url: art.url,
-      thumbnail_url: undefined // add 
-    })
-  }
+  
 
-  async function postProduct(previews, design_data) { 
+  async function postProduct(previews, design_data, refs) { 
     const {name, description} = details
     try {
       showLoading(name, "Uploading...", name)
@@ -133,18 +134,19 @@ function NewProduct() {
         name: name, 
         description: description,
         sizes: sizes,
-        images: previews,
+        images: previews.map(preview => preview.url),
         attributes: {
           ...attributes,
           color: attributes.color.value.toUpperCase()
         },
         designs: formatted_design 
       }
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/products`, product)
+      await axios.post(`${process.env.API_URL}/products`, product)
       updateSuccess(name, "Product has been uploaded!", name) 
     }
     catch (err) {
-      updateError(name, "Problem uploading shirt.", "Contact us!") 
+      updateError(name, "Server Error: post new product", "Contact us!") 
+      refs.map(ref=> deleteObject(ref))
     }
   }
 
@@ -153,15 +155,15 @@ function NewProduct() {
       {
         !mobile ? 
         <div style={{ marginTop: 30, padding: 20}}><NoBox text="Use a computer to create designs" /></div> :
-        <div className="flexbox flex-wrap background3 full-width radius10" style={{ margin: "50px 0px 15px", padding: 20, alignItems: "flex-start", gap: 15}}>
-          <div className="flexbox-column full-width radius15" style={{ maxWidth: "300px", padding: "5px 15px 15px"}}>
+        <div className="flexbox flex-wrap full-width radius10" style={{ margin: "30px 0px 15px", alignItems: "flex-start", gap: 15}}>
+          <div className="flexbox-column background3 full-width full-height radius15" style={{ maxWidth: "300px", padding: "5px 15px 15px"}}>
             <h2>New Product</h2>
             <ProductDetails details={details} setDetails={setDetails} error={error} />
             <AttributesSelect attributes={attributes} setAttributes={setAttributes} sizes={sizes} setSizes={setSizes} error={error}/>
           </div>
           <div className="flexbox-column">
             <ProductPreview frontImages={frontImages} backImages={backImages} color={attributes.color} currentImage={currentImage} setCurrentImage={setCurrentImage} imageList={imageList} setImageList={setImageList}/>
-            <Button onClick={openConfirmModal} className="form-button" style={{ margin: "10px 3px 5px auto"}}  leftIcon={<AddIcon />} uppercase>submit</Button>
+            <Button onClick={openConfirmModal} className="orange-button" style={{ margin: "10px 3px 5px auto"}} leftIcon={<AddIcon />} uppercase>submit</Button>
           </div>
           {/* <ConfirmModal openConfirm={openConfirm} close={() => setOpenConfirm(false)} details={details} attributes={attributes} sizes={sizes}/> */}
         </div>

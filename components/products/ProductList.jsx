@@ -8,9 +8,6 @@ function ProductList({products, setSelected}) {
   if (!products) {
     return null
   }
-  if (products.length === 0) {
-    return <NewButton />
-  }
   return(
     <>
       <div className="product-grid">
@@ -24,7 +21,7 @@ function ProductList({products, setSelected}) {
         }
         { 
           products.length < 3 ?
-          Array(3 - products.length).fill(0).map((_, i) => {
+          Array(3).fill(0).map((_, i) => {
             return <div key={i}></div>
           }) :
           null

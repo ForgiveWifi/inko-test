@@ -14,22 +14,22 @@ function ProductCard({product, select}) {
         whileHover={{ scale: 1.04 }}
         transition={{ duration: 0.1 }}
         onClick={select} 
-        className="flexbox-column radius10 shadow2 white-background white-border margin-auto" 
-        style={{ width: 250 }}>
+        className="flexbox-column radius10 shadow2 white-background white-border full-width" 
+      >
         {
-          loaded ?
-          null :
-          <div className="flexbox" style={{ width: 230, height: 230}}>
-            <Skeleton className="radius10" style={{ width: "230px", height: "230px", position: "relative", bottom: 2}} />
-          </div>
+          !loaded ?
+          <div className="flexbox" style={{ width: "100%", paddingBottom: "100%"}}>
+          </div> :
+          null 
         }
         <img 
           onLoad={() => setLoaded(true)} 
           className="radius10" 
           src={product.images[0]} 
           style={ loaded ? { width: "100%" } : { display: "none"} }
+          draggable={false}
         />
-        <h3 className="grey-text text-center" style={{ marginTop: 5}}>{product.name}</h3>
+        <h3 className="grey-text text-center full-width" style={{ position: "relative", bottom: 10, marginTop: 5}}>{product.name}</h3>
       </motion.button>
     </>
   )

@@ -23,7 +23,6 @@ async function handler(req,res) {
         }
       }
       catch (err) {
-        console.log(err)
         res.status(500).json(errorMessage(err.message))
       }
       break

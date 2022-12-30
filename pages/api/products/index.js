@@ -43,9 +43,10 @@ async function handler(req,res) {
   
         const product = await Product.create({
           name: name,
-          account: req.auth.stripe_id, 
+          account: stripe_id, 
           sizes: sizes, 
           color: attributes.color,
+          style: attributes.style, 
           designs: designs, 
           images: images
         })
@@ -53,7 +54,7 @@ async function handler(req,res) {
         const new_product = {
           images: images,
           metadata: {
-            stripe_id: req.auth.stripe_id,
+            stripe_id: stripe_id,
             design_id: product._id,
             ...attributes,
           },
@@ -69,9 +70,10 @@ async function handler(req,res) {
           new_product.metadata.size = sizes[i]
           await stripe.products.create(new_product)
         }
-        res.status(200).json({message: "Success!"}) // edit
+        res.status(200).json({message: "Success!"}) 
       }
       catch (err) {
+        console.log(err)
         res.status(500).json(errorMessage(err.message))
       }
       break

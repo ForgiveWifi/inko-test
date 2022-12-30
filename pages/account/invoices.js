@@ -8,6 +8,7 @@ import { showError } from '../../components/ui/alerts';
 import { Button, Modal } from '@mantine/core';
 import CloseButton from '../../components/ui/CloseButton';
 import Heading from '../../components/ui/Heading';
+import MyModal from '../../components/ui/MyModal';
 
 function Invoices() {
 
@@ -22,7 +23,7 @@ function Invoices() {
     async function fetchInvoices() {
       try {
         setLoading(true)
-        const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices`) //?page=${page}&limit=15
+        const {data} = await axios.get(`${process.env.API_URL}/invoices`) //?page=${page}&limit=15
         setInvoices(data.data) 
         // setPage(parseInt(page))
         setTotalPages(10)
@@ -38,7 +39,7 @@ function Invoices() {
   const modal = selected !== null
   return (
     <>
-      <Modal opened={modal} withCloseButton={false} size="auto" centered overlayBlur={3} closeOnClickOutside={false} transitionDuration={300}>
+      <MyModal open={modal}>
         {
           modal ? 
           <>
@@ -47,7 +48,7 @@ function Invoices() {
           </> :
           null
         }
-      </Modal>
+      </MyModal>
       <Heading text="Invoices" />
       <InvoicesHeading />
       <InvoiceList loading={loading} invoices={invoices} setSelected={setSelected}/>

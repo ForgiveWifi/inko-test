@@ -8,12 +8,19 @@ function CurrentImage({ currentImage, setCurrentImage, light }) {
   const front = currentImage.placement === "front"
   
   const [dragOutline, setDragOutline] = useState(false)
-  const {image, width, height, x_offset, y_offset } = currentImage
+  const {art_file, width, height, x_offset, y_offset } = currentImage
   const [loaded, setLoaded] = useState(false)
   const ref = useRef(0)
 
   useEffect(() => {
-    setCurrentImage({ ...currentImage, height: ref.current.height })
+    const h = ref.current.height
+    const w = Math.round(currentImage.width * (395 / h))
+
+    if (h > 395) {
+      setCurrentImage({ ...currentImage, width: w, height: 395, x_offset: (320 - w ) / 2 })
+    } else {
+      setCurrentImage({ ...currentImage, height: h })
+    }
   }, [loaded])
 
   // document.onkeydown = (e) => {
@@ -63,7 +70,7 @@ function CurrentImage({ currentImage, setCurrentImage, light }) {
         className="flexbox radius5"
         style={{ 
           position: "relative", 
-          bottom: front ? 18 : 38,
+          bottom: front ? 12 : 38,
           outline: dragOutline ? `1px dotted ${light ? "black" : "white"}` : null, 
           width: 320, 
           height: 395, 
@@ -104,15 +111,16 @@ function CurrentImage({ currentImage, setCurrentImage, light }) {
             setDragOutline(true)
           }}
           style={{
-            outline: image ? `1px solid ${light ? "black" : "white"}` : null,
+            outline: art_file ? `1px solid ${light ? "black" : "white"}` : null,
           }}
         >
           <img
             ref={ref}
             draggable="false"
-            src={URL.createObjectURL(image)}
+            src={URL.createObjectURL(art_file)}
             className="full-width"
             onLoad={() => setLoaded(true)}
+            style={{ display: !loaded ? "none" : null}}
           />
         </Rnd>
       </div>

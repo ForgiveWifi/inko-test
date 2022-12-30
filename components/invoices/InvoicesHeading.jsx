@@ -20,7 +20,7 @@ function InvoicesHeader() {
             </Button>
           </div>
         </div> */}
-      <div className="flexbox-column full-width " style={{ marginTop: "10px", padding: "0px 18px"}}>
+      <div className="flexbox-column full-width " style={{ padding: "0px 18px"}}>
         <div className="flexbox-row full-width space-between">
           <h5 className="text-center" style={{width: 90}}> status</h5>
           <h5 className="text-center" style={{ width: 300}}>ID</h5>

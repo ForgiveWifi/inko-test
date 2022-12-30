@@ -1,35 +1,35 @@
 import { useState } from 'react';
+import { useHover } from '@mantine/hooks';
 import EditIcon from '@mui/icons-material/Edit';
 
 function SingleImage({ design, isImage, selectImage, light }) {
 
-  const [hover, setHover] = useState(false)
+  const { hovered, ref } = useHover()
 
-  const hovered = hover && !isImage
-  const { image, width, x_offset, y_offset } = design
+  const border = hovered && !isImage
+  const { art_file, width, x_offset, y_offset } = design
 
   return (
     <>
       <div
+        ref={ref}
         className="flexbox"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
         style={{
           cursor: "pointer",
-          outline: hovered ? `1px dashed ${light ? "black" : "white"}` : null,
+          outline: border ? `1px dashed ${light ? "black" : "white"}` : null,
           position: "absolute",
           left: x_offset,
           top: -(y_offset),
         }}>
-      <img 
-        draggable="false"
-        src={URL.createObjectURL(image)} 
-        style={{
-          width: width,
-        }}
-      />
+        <img 
+          draggable="false"
+          src={URL.createObjectURL(art_file)} 
+          style={{
+            width: width,
+          }}
+        />
         {
-          hovered && 
+          border && 
           <div style={{ position: "absolute", top: 0, right: 0}}>
             <button 
               onClick={selectImage}
