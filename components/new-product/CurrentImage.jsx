@@ -118,6 +118,7 @@ function CurrentImage({ currentImage, setCurrentImage, light }) {
             ref={ref}
             draggable="false"
             src={URL.createObjectURL(art_file)}
+            alt={art_file.name}
             className="full-width"
             onLoad={() => setLoaded(true)}
             style={{ display: !loaded ? "none" : null}}

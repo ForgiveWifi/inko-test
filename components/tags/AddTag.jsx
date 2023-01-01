@@ -129,8 +129,7 @@ function AddTag({missingTags, toggleChange, close}) {
                   ref={ref} 
                   onLoad={() => setLoaded(true)}
                   src={URL.createObjectURL(image)} 
-                  // className=""
-                  // style={{ width: '100%'}}
+                  alt={image.name}
                   style={loaded ? { width: dimensions.width, height: dimensions.height} : { display: "none"} } 
                   draggable={false}/> 
                 }

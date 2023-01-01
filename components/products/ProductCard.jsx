@@ -26,6 +26,7 @@ function ProductCard({product, select}) {
           onLoad={() => setLoaded(true)} 
           className="radius10" 
           src={product.images[0]} 
+          alt={product.name + "-mockup"}
           style={ loaded ? { width: "100%" } : { display: "none"} }
           draggable={false}
         />

@@ -46,7 +46,7 @@ function Tags() {
 
   return (
     <>
-      {loading && <Loading />}
+      { loading && <Loading /> }
       <div className='flexbox-column full-width'>
         <Heading text="Neck Tags" />
         <div className='full-width'>

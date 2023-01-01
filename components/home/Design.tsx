@@ -82,9 +82,9 @@ function Design() {
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
           className="flexbox margin-auto" 
-          style={{ maxWidth: "375px" }}
+          style={{ position: "relative", maxWidth: 375}}
         >
-          <img src="design_and_art.jpg" alt="Design and Art" className='full-width orange-shadow' />
+          <img src="design_and_art.jpg" alt="Design and Art" className='full-width orange-shadow'/>
         </motion.div>
 
       </div>

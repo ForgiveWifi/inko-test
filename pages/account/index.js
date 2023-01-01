@@ -34,7 +34,7 @@ function Profile() {
   const error = false
 
   const save = (!isEqual(profile, profileRef) || !isEqual(shipping, shippingRef)) && !loading
-  console.log(process.env.NEXT_PUBLIC_API_URL)
+
   useEffect(() => {
     getProfile()
     async function getProfile() {
@@ -56,7 +56,6 @@ function Profile() {
         setLoading(false)
       }
       catch (err) {
-        console.log(err.response.data)
         showError("profile", "Server error: profile", "Contact Us!")
       }
     }

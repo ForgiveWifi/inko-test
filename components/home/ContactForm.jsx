@@ -53,7 +53,7 @@ export default function ContactForm() {
           </div>
         </motion.div>
 
-        <section className="flexbox full-width shadow1" style={{ maxWidth: "500px", backgroundColor: "white", borderRadius: "25px", padding: "25px", zIndex: "2"}}>
+        <section className="flexbox-column full-width shadow1" style={{ maxWidth: "500px", backgroundColor: "white", borderRadius: "25px", padding: "25px", zIndex: "2"}}>
 
           <form ref={form} onSubmit={sendEmail} className="form-grid full-width" autoComplete="off" style={{ maxWidth: 400}}>
             {/* <div className='flexbox span2' style={{ marginBottom: "20px"}}>

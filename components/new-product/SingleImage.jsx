@@ -24,6 +24,7 @@ function SingleImage({ design, isImage, selectImage, light }) {
         <img 
           draggable="false"
           src={URL.createObjectURL(art_file)} 
+          alt={art_file.name}
           style={{
             width: width,
           }}
