@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react"; 
 import { motion } from "framer-motion"
 import Link from "next/link";
-import LogButton from "../components/ui/LoginButton";
+import LogButton from "../components/nav/LoginButton";
 import { useMediaQuery } from '@mantine/hooks';
 import React from "react";
 

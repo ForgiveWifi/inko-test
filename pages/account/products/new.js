@@ -69,8 +69,6 @@ function NewProduct() {
     try {
       showLoading("firebase", null, "Uploading images...")
       const previews = await uploadPreviews()
-      console.log("preview done")
-      console.log("uploading images")
       const { design_data, refs } = await uploadImages(previews)
       updateSuccess("firebase", null, "Uploaded images!")
       return({ previews, design_data, refs })
@@ -108,7 +106,6 @@ function NewProduct() {
 
     async function uploadImage(design) {
       const { art_file } = design
-      console.log("uploading" + art_file)
       const art = await uploadFirebase(user, "art", art_file.name, art_file)
       const { name, url, ref } = art
       return({
@@ -141,7 +138,7 @@ function NewProduct() {
         },
         designs: formatted_design 
       }
-      await axios.post(`${process.env.API_URL}/products`, product)
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/products`, product)
       updateSuccess(name, "Product has been uploaded!", name) 
     }
     catch (err) {

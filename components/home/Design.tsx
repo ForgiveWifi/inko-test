@@ -71,7 +71,7 @@ function Design() {
               <div className="square-icon flexbox shadow2">
                 <DesignServicesIcon style={boxIcon} />
               </div>
-              Unique designs
+              Unique and stylish designs
             </h4>
           </motion.div>
         </div>
@@ -82,7 +82,7 @@ function Design() {
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
           className="flexbox margin-auto" 
-          style={{ maxWidth: "410px" }}
+          style={{ maxWidth: "375px" }}
         >
           <img src="design_and_art.jpg" alt="Design and Art" className='full-width orange-shadow' />
         </motion.div>

@@ -4,7 +4,7 @@ import Image from "next/image";
 function HomeProducts() {
   const productlist = [
     {
-      name:"Bella + Canvas",
+      name:"Bella + Canvas 3001",
       src: "/BellaCanvas_3001_White_04.jpg",
       alt: "Bella Canvas 3001 White",
       position: "0px -30px",
@@ -26,23 +26,24 @@ function HomeProducts() {
   
   return (
     <>
-      <div className="flexbox-column" style={{ marginTop: "50px"}}>
+      <div className="flexbox-column" style={{ marginBottom: "40px"}}>
       
-        <motion.h2 
+        <motion.h1 
           initial={{ x: 40, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
           viewport={{ once: true }}
           style={{ maxWidth: "830px", marginBottom: "20px" }}>
-          Products 
-        </motion.h2>
+          products 
+        </motion.h1>
 
         <div className="flexbox-row flex-wrap" style={{ justifyContent: "center", padding: "0px 15px", columnGap: "40px", rowGap: "15px", marginBottom: "30px"}}>
           {
-            productlist.map(({name, src, alt, position, link}) => {
+            productlist.map(({name, src, alt, position, link}, i) => {
               return(
                 <motion.a
                   href={link} 
+                  key={i}
                   target="_blank" 
                   rel="noopener noreferrer"
                   initial={{ scale: 0.95, opacity: 0 }}

@@ -2,7 +2,6 @@ import { toTime, toDate } from "../../lib/time";
 import DesignList from "./DesignList";
 import Divider from "../ui/Divider";
 import CopyID from "./CopyID";
-// import SizeList from "./SizeList";
 import { Button } from "@mantine/core";
 import Loading from "../ui/Loading";
 // import CopyIcon from "../ui/icons/CopyIcon";
@@ -44,8 +43,7 @@ function ProductDisplay({loading, product}) {
           {/* <HorzDivider /> */}
             {sizes.map((size, i) => {
               return(
-                <div className="flexbox-row">
-                  
+                <div className="flexbox-row" key={i}>
                   <div>{size}</div>
                     <Divider />
                   <div className="flexbox-row">

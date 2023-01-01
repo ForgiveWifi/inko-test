@@ -18,7 +18,7 @@ function Lines({lines}) {
       try {
         setLoad(true)
         const product_list = await Promise.all(lines.data.map(async ({quantity, price, amount}) => {
-          const res = await axios.get(`${process.env.API_URL}/products/stripe/${price.product}`)
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/stripe/${price.product}`)
           const { data } = res
           console.log("price", price)
           const { name, images, metadata} = data

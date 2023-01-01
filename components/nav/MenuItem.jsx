@@ -3,10 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../../styles/Nav.module.css"
 
-function MenuItem({isOpen, setIsOpen, name, to}) {
+function MenuItem({isOpen, setIsOpen, link}) {
 
-  const router = useRouter()
-  
+  const {name, to, icon} = link
+
   const variants = {
     open: {
       x: 0,
@@ -23,26 +23,19 @@ function MenuItem({isOpen, setIsOpen, name, to}) {
       }
     }
   };
-  
-  function nav() { 
-    setIsOpen(false)
-    router.push("heheh")
-  }
-
   return (
     <>
-    {
-      isOpen &&
       <motion.div
         variants={variants}
         whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        whileTap={{ scale: 0.90 }}
       >
-        <Link href={to}>
-          <div className="orange-text">{name}</div>
+        <Link href={to} onClick={() => setIsOpen(false)} className="link flexbox-row" style={{ gap: 10}}>
+          {/* {icon} */}
+          <h3 className="orange-text">{name}</h3>
         </Link>
       </motion.div>
-    }
     </>
   );
 };

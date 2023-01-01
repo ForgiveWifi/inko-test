@@ -25,7 +25,7 @@ function Products() {
     const fetchProducts = async () => {
       try {
         setLoading(true)
-        const {data} = await axios.get(`${process.env.API_URL}/products`) //?page=${page}&limit=18
+        const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`) //?page=${page}&limit=18
         setProducts(data.data) 
         // setCurrentPage(parseInt(page))
         setTotalPages(data.pages)

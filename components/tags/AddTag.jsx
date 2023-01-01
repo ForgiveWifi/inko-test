@@ -66,13 +66,14 @@ function AddTag({missingTags, toggleChange, close}) {
       toggleChange()
     }
     catch (err) {
+      console.log(err)
       updateError(size, `Server error: post ${size} tag`, "Contact us!")
     }}
   }
 
   async function postTag(design, ref) {
     try {
-      const post = await axios.post(`${process.env.API_URL}/tags`, {
+      const post = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/tags`, {
         size: size, 
         pallet: small_pallet ? "Small" : "Standard",
         design: design

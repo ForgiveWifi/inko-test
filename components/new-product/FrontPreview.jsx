@@ -15,7 +15,7 @@ function FrontPreview({currentImage, makeCurrentImage, color, zIndex, frontImage
           className="flexbox radius5"
           style={{ 
           position: "relative", 
-          bottom: 18,
+          bottom: 12,
           width: 320, 
           height: 395, 
           zIndex: 40

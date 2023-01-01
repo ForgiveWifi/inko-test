@@ -15,7 +15,7 @@ function DeleteTag({modal, tag, setSelected, toggleChange}) {
       const { size, design } = tag
       showLoading(size, null, `Deleting ${size} tag...`)
       await deleteFirebase(user, "tags", design.art_file)
-      await axios.delete(`${process.env.API_URL}/tags/${size}`)
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/tags/${size}`)
       setSelected(null)
       updateSuccess(size, null, `Deleted ${size} tag!`)
       toggleChange()

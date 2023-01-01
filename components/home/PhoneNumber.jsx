@@ -1,6 +1,7 @@
 
 import { useState, forwardRef, useImperativeHandle } from "react";
 import formatPhoneNumber from "../../lib/phoneNumberFormat"
+import styles from "../../styles/Home.module.css"
 
 function PhoneNumber(props, ref) {
 
@@ -18,9 +19,9 @@ function PhoneNumber(props, ref) {
   }
 
   return (
-    <div className="flexbox-start span2" >
-      <label>phone number</label>
-      <input ref={ref} onChange={e => handleInput(e)} value={input} name="phoneNumber" type="text" className="input-field"></input>
+    <div className="flexbox-column-start span2" >
+      <label className="label">phone number</label>
+      <input ref={ref} onChange={e => handleInput(e)} value={input} name="phoneNumber" type="text" className={styles["input-field"]}></input>
     </div>
   );
 }

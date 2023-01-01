@@ -34,13 +34,13 @@ function Profile() {
   const error = false
 
   const save = (!isEqual(profile, profileRef) || !isEqual(shipping, shippingRef)) && !loading
-
+  console.log(process.env.NEXT_PUBLIC_API_URL)
   useEffect(() => {
     getProfile()
     async function getProfile() {
       try {
         setLoading(true)
-        const res = await axios.get(`${process.env.API_URL}/account`)
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/account`)
         const {first_name, last_name, company} = res.data.metadata
         const account = {
           first_name: first_name || "",
@@ -65,7 +65,7 @@ function Profile() {
   async function saveProfile() {
     try {
       showLoading("shipping", null, "Saving...")
-      await axios.post(`${process.env.API_URL}/account`, { 
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/account`, { 
         // address: address,
         shipping: shipping, 
         metadata: profile
@@ -89,7 +89,7 @@ function Profile() {
       { loading ? <Loading /> : null}
       {
         user && 
-        <div style={{ margin: 40}}>
+        <div className="flexbox-column" style={{ margin: 40}}>
           <h1>Profile</h1>
           <div className="flexbox-row" style={{ margin: "15px 0px"}}>
             <h5 style={{ marginRight: 15}}>email:</h5>

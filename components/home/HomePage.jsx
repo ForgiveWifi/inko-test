@@ -19,14 +19,14 @@ function HomePage() {
         style={{ maxWidth: 1000, marginBottom: 100 }}
       > 
         <div className="full-width" style={{ maxWidth: 330, marginBottom: desktop ? 0 : 50}}>
-          <div className={desktop ? "flexbox-column margin-auto full-width" : ""} style={{ position: desktop ? "" : "relative", right: desktop ? "" : "18px", marginBottom: "15px", marginTop: desktop ? 50 : 0 }}> 
+          <div className={desktop ? "flexbox-column margin-auto full-width" : ""} style={{ position: desktop ? "" : "relative", right: desktop ? "" : "18px", marginBottom: "15px", marginTop: desktop ? 10 : 0 }}> 
             <h1 style={{ lineHeight: "40px", marginTop: "25px", marginLeft: desktop ? "0px" : "16px"}}>
               inkhouse
             </h1>
             <h2 className="rainbow flexbox no-wrap text-center max-radius shadow2" style={{ width: "350px", height: "45px", padding: "0px 10px", fontWeight: "500", fontSize: 26, marginTop: "8px"}}>a merchandise agency</h2>
           </div>
           <div className={desktop ? "text-center" : ""} style={{ maxWidth: 400}}>
-            Our company provides manufacturing and design services for apparel.  Turn your ideas into custom merchandise for your brand, company, groups, or events.
+            Our company provides manufacturing and design services for merchandise.  Turn your ideas into custom apparel for your brand, company, groups, or events.
           </div>
         </div>
 

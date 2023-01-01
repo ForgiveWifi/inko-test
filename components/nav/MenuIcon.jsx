@@ -1,18 +1,20 @@
 import { motion } from "framer-motion"
 import { useState } from "react";
-import LogoutButton from "../ui/LoginButton";
+import LogoutButton from "./LogoutButton";
 import MenuButton from "./MenuButton";
 import MenuItem from "./MenuItem";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import styles from "../../styles/Nav.module.css"
 
 function MenuIcon() {
   
   const [isOpen, setIsOpen] = useState(false)
 
-  const navList = [
+  const navLinks = [
     {
       name: "profile",
-      to: "/account"
+      to: "/account",
+      icon: <AccountCircleIcon style={{ fill: "#FF9244" }}/>
     },
     {
       name: "products",
@@ -60,26 +62,24 @@ function MenuIcon() {
   
   return (
     <>
-      <motion.nav
+      <motion.div
         initial={false}
         animate={isOpen ? "open" : "closed"}
         className="flexbox"
       >
-      <motion.div className={`${styles["menu-background"]} shadow1`} variants={sidebar} />
-      <motion.ul variants={variants} className={`${styles["menu-list"]} flexbox-column`} >
-        {
-          navList.map((item, i) => {
-            const {name, to} = item
-            return(
-              <MenuItem key={i} isOpen={isOpen} setIsOpen={setIsOpen} name={name} to={to}/>
-            )
-          })
-        }
-        {/* <LogoutButton /> */}
-      </motion.ul>
-
-      <MenuButton isOpen={isOpen} setIsOpen={setIsOpen}/>
-    </motion.nav>
+        <motion.div className={`${styles["menu-background"]} shadow1`} variants={sidebar} />
+        <motion.ul variants={variants} className={`${styles["menu-list"]} flexbox-column-start full-width`} style={{ width: 250, marginTop: 60, paddingLeft: 70, paddingRight: 60, gap: 15}} >
+          {
+            navLinks.map((link, i) => {
+              return(
+                <MenuItem key={i} isOpen={isOpen} setIsOpen={setIsOpen} link={link}/>
+              )
+            })
+          }
+          <LogoutButton isOpen={isOpen}/>
+        </motion.ul>
+        <MenuButton isOpen={isOpen} setIsOpen={setIsOpen}/>
+      </motion.div>
     </>
   );
 }

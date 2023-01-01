@@ -4,6 +4,8 @@ import errorMessage from "../../../lib/errorMesage"
 import getStripeID from "../../../lib/getStripeID"
 import Tag from "../../../models/Tag"
 
+const sizes = ["S", "M", "L", "XL"]
+
 async function handler(req,res) {
 
   await dbConnect()
@@ -15,8 +17,9 @@ async function handler(req,res) {
     case 'GET':
       try {
         const tags = await Tag.findById(stripe_id)
+        const sorted = tags.tags.sort((a, b) => sizes.indexOf(a.size) - sizes.indexOf(b.size))
         if (tags) {
-          res.status(200).json(tags)
+          res.status(200).json(sorted)
         } else {
           const new_tag = await Tag.create({ _id: stripe_id, tags:[]})
           res.status(200).json(new_tag)

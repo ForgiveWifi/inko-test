@@ -1,4 +1,5 @@
 import styles from "../../styles/Home.module.css"
+
 type InputFieldProps = {
   name: string,
   type: string,
@@ -12,8 +13,8 @@ function InputField(props: InputFieldProps) {
   const { name, type, required, min, className} = props
 
   return (
-    <div className={`flexbox-start ${className}`} >
-      <label>{name}</label>
+    <div className={`flexbox-column-start ${className}`} >
+      <label className="label">{name}</label>
       <input className={styles["input-field"]} name={name} type={type} min={min} required={required}></input>
     </div>
   );

@@ -69,18 +69,14 @@ button:hover {
   cursor: pointer;
 }
 
-label {
+.label {
   color: #FF9244;
-  font-size: 14;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 3px;
   padding-left: 10px;
   position: relative;
   top: 1px;
-}
-
-.label {
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 8px;
 }
 
 .rainbow {
@@ -386,7 +382,7 @@ label {
 .orange-shadow {
   outline: 4px solid black;
   border-radius: 1.5vh;
-  box-shadow: 10px 10px #ff6a00
+  box-shadow: 6px 6px 0px 3px #ff6a00
 }
 
 

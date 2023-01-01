@@ -3,7 +3,9 @@ import Image from "next/image";
 function Logo() {
   return (
     <>
-      <Image src="/inkhouse-white.png" alt="Inkhouse Logo" width={135} height={40}/>
+      <div className="flexbox" style={{ position: "relative", width: 150, height: 50 }}>
+        <Image src="/inkhouse-white.png" alt="Inkhouse Logo" fill={true} style={{ objectFit: "contain" }}/>
+      </div>
     </>
   );
 }

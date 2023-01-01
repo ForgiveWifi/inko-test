@@ -23,7 +23,7 @@ function Invoices() {
     async function fetchInvoices() {
       try {
         setLoading(true)
-        const {data} = await axios.get(`${process.env.API_URL}/invoices`) //?page=${page}&limit=15
+        const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices`) //?page=${page}&limit=15
         setInvoices(data.data) 
         // setPage(parseInt(page))
         setTotalPages(10)

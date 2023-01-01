@@ -30,8 +30,8 @@ function Tags() {
     async function fetchTags() {
       try {
         setLoading(true)
-        const res = await axios.get(`${process.env.API_URL}/tags`)
-        setTags(res.data.tags)
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/tags`)
+        setTags(res.data)
         setLoading(false)
       }
       catch (err) {
