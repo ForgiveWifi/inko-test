@@ -12,22 +12,22 @@ function MenuIcon() {
 
   const navLinks = [
     {
-      name: "profile",
-      to: "/account",
-      icon: <AccountCircleIcon style={{ fill: "#FF9244" }}/>
-    },
-    {
       name: "products",
       to: "/account/products/?page=1"
+    },
+    {
+      name: "tags",
+      to: "/account/tags"
     },
     {
       name: "invoices",
       to: "/account/invoices"
     },
     {
-      name: "tags",
-      to: "/account/tags"
-    },
+      name: "profile",
+      to: "/account",
+      icon: <AccountCircleIcon style={{ fill: "#FF9244" }}/>
+    }
   ]
 
   const sidebar = {

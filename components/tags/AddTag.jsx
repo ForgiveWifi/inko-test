@@ -95,7 +95,7 @@ function AddTag({missingTags, toggleChange, close}) {
     <>
       <div className="flexbox-column full-width" style={{ maxWidth: 500, padding: 10, marginTop: 15 }} >
         <h1>Add Tag</h1>
-        <div className="label" style={{ marginTop: 20}}>Select Size</div>
+        <h5 style={{ marginTop: 20}}>Select Size</h5>
         <Select
           value={size}
           onChange={(v) => setSize(v)}
@@ -105,7 +105,7 @@ function AddTag({missingTags, toggleChange, close}) {
           iconWidth={30}
         />
         <div className="flexbox-column">
-          <div className="label">Image</div>
+          <h5 style={{ marginTop: 10}} >Image</h5>
           <div className="flexbox" style={{height: 40}}>
             { 
               image ?
@@ -134,7 +134,7 @@ function AddTag({missingTags, toggleChange, close}) {
                   draggable={false}/> 
                 }
             </div>
-          <Button className="margin-left" style={{ marginTop: 10}} onClick={() => submitTag()}>submit</Button>
+          <Button className="orange-button margin-left" style={{ marginTop: 10}} onClick={() => submitTag()}>submit</Button>
         </div>
       </div>
     </>

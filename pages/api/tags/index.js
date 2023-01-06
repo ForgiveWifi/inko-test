@@ -17,8 +17,8 @@ async function handler(req,res) {
     case 'GET':
       try {
         const tags = await Tag.findById(stripe_id)
-        const sorted = tags.tags.sort((a, b) => sizes.indexOf(a.size) - sizes.indexOf(b.size))
         if (tags) {
+          const sorted = tags.tags.sort((a, b) => sizes.indexOf(a.size) - sizes.indexOf(b.size))
           res.status(200).json(sorted)
         } else {
           const new_tag = await Tag.create({ _id: stripe_id, tags:[]})

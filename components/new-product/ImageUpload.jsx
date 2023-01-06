@@ -7,6 +7,7 @@ import { cleanNotifications } from "@mantine/notifications";
 import BackupIcon from '@mui/icons-material/Backup';
 import CloseIcon from '@mui/icons-material/Close';
 import DownloadIcon from '@mui/icons-material/Download';
+import WallpaperIcon from '@mui/icons-material/Wallpaper';
 import { showError } from '../ui/alerts';
 
 
@@ -49,7 +50,7 @@ export function ImageUpload({currentImage, setCurrentImage, open, close}) {
               <CloseIcon style={{fontSize: "80px", fill: "rgb(255, 81, 81)"}}/>
             </Dropzone.Reject>
             <Dropzone.Idle>
-              <BackupIcon style={{fontSize: "80px", fill: "rgb(107, 116, 130)"}}/>
+              <WallpaperIcon style={{fontSize: "80px", fill: "rgb(107, 116, 130)"}}/>
             </Dropzone.Idle>
           </Group>
 

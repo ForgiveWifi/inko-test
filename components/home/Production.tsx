@@ -50,7 +50,7 @@ function Production() {
           <p 
             className="full-width text-center" 
             style={{ maxWidth: "500px", marginTop: "15px"}}>
-            inkhouse products are printed on premium garments, locally in the US.  advanced printers are able to produce high-resolution prints with vibrant colors.  We offer a wide variety of styles and vibrant colors allow for full customization.   
+            inko products are printed on premium garments, locally in the US.  advanced printers are able to produce high-resolution prints with vibrant colors.  We offer a wide variety of styles and vibrant colors allow for full customization.   
           </p>
         </motion.div>
         

@@ -7,6 +7,7 @@ function Footer() {
     <>
       <footer className={`${styles.footer} flexbox-row`}>
         <Logo />
+        {/* <div>Copyright &copy; {`${(new Date().getFullYear())} Inko Studios`}</div> */}
         <div className="flexbox-row" style={{ marginLeft: "auto", gap: 8}}>
           {
             contactList.map((contact, i) => {
@@ -18,7 +19,7 @@ function Footer() {
               )
             })
           }
-          {/* <div>{`&copy; ${(new Date().getFullYear())} INKHOUSE STUDIO`}</div> */}
+          
         </div>
       </footer>
     </>

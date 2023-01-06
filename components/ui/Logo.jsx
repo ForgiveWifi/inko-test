@@ -3,8 +3,8 @@ import Image from "next/image";
 function Logo() {
   return (
     <>
-      <div className="flexbox" style={{ position: "relative", width: 150, height: 50 }}>
-        <Image src="/inkhouse-white.png" alt="Inkhouse Logo" fill={true} style={{ objectFit: "contain" }}/>
+      <div className="flexbox" style={{ position: "relative", width: 200, height: 40 }}>
+        <Image src="/inko-studio-logo.png" alt="Inkhouse Logo" fill={true} style={{ objectFit: "contain", filter: "invert(1)" }}/>
       </div>
     </>
   );

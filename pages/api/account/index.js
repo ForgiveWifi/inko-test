@@ -1,4 +1,4 @@
-import { withApiAuthRequired, getSession, getAccessToken } from "@auth0/nextjs-auth0"
+import { withApiAuthRequired } from "@auth0/nextjs-auth0"
 import dbConnect from "../../../lib/dbConnect"
 import errorMessage from "../../../lib/errorMesage"
 import getStripeID from "../../../lib/getStripeID"

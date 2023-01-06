@@ -26,7 +26,7 @@ function HomeProducts() {
   
   return (
     <>
-      <div className="flexbox-column" style={{ marginBottom: "40px"}}>
+      <div className="flexbox-column" style={{ marginBottom: "80px"}}>
       
         <motion.h1 
           initial={{ x: 40, opacity: 0 }}
@@ -37,7 +37,7 @@ function HomeProducts() {
           products 
         </motion.h1>
 
-        <div className="flexbox-row flex-wrap" style={{ justifyContent: "center", padding: "0px 15px", columnGap: "40px", rowGap: "15px", marginBottom: "30px"}}>
+        <div className="flexbox-row flex-wrap" style={{ justifyContent: "center", padding: "0px 15px", columnGap: "40px", rowGap: "15px"}}>
           {
             productlist.map(({name, src, alt, position, link}, i) => {
               return(
@@ -52,19 +52,20 @@ function HomeProducts() {
                   viewport={{ once: true }}
                   className="flexbox-column link"
                 >
-                  <h5 style={{ height: 25 }}>{name.toUpperCase()}</h5> 
+                  
                   <motion.div
                     whileHover={{ scale: 1.02}}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.3 }}
                   >
                     <div style={{ position: "relative"}}> 
-                      <div className="radius15" style={{ width: 250, height: 250, backgroundColor: "white", top: 0}}></div> 
-                      <motion.div whileHover={{ opacity: 0.8}}>
-                        <Image src={src} alt={alt} width={250} height={250} className="radius15" style={{ position: "absolute", top: 0, objectFit: "cover", objectPosition: position}} />
+                      <div style={{ width: 250, height: 250, backgroundColor: "white", top: 0}}></div> 
+                      <motion.div whileHover={{ opacity: 0.75}}>
+                        <Image src={src} alt={alt} width={250} height={250} className="black-border" style={{ position: "absolute", top: 0, objectFit: "cover", objectPosition: position}} />
                       </motion.div>
                     </div>
                   </motion.div>
+                  <h4 style={{ height: 25, marginTop: 10 }}>{name.toUpperCase()}</h4> 
                 </motion.a>
               )
             })

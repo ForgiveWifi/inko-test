@@ -21,6 +21,7 @@ function LogoutButton({isOpen}) {
   
   return (
     <>
+    { isOpen ?
       <motion.a 
         href="/api/auth/logout"
         variants={variations}
@@ -31,7 +32,7 @@ function LogoutButton({isOpen}) {
         disabled={!isOpen}
       >
         logout
-      </motion.a>
+      </motion.a> : null }
     </>
   );
 }
