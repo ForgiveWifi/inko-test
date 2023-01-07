@@ -4,6 +4,7 @@ import LogoutButton from "./LogoutButton";
 import MenuButton from "./MenuButton";
 import MenuItem from "./MenuItem";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 import styles from "../../styles/Nav.module.css"
 
 function MenuIcon() {
@@ -11,6 +12,10 @@ function MenuIcon() {
   const [isOpen, setIsOpen] = useState(false)
 
   const navLinks = [
+    {
+      name: "home",
+      to: "/"
+    },
     {
       name: "products",
       to: "/account/products/?page=1"
@@ -24,7 +29,7 @@ function MenuIcon() {
       to: "/account/invoices"
     },
     {
-      name: "profile",
+      name: "account",
       to: "/account",
       icon: <AccountCircleIcon style={{ fill: "#FF9244" }}/>
     }
@@ -68,7 +73,7 @@ function MenuIcon() {
         className="flexbox"
       >
         <motion.div className={`${styles["menu-background"]} shadow1`} variants={sidebar} />
-        <motion.ul variants={variants} className={`${styles["menu-list"]} flexbox-column-start full-width`} style={{ width: 250, marginTop: 60, paddingLeft: 70, paddingRight: 60, gap: 15}} >
+        <motion.ul variants={variants} className={`${styles["menu-list"]} flexbox-column-start full-width`} style={{ width: 250, marginTop: 60, paddingLeft: 75, paddingRight: 60, gap: 15}} >
           {
             navLinks.map((link, i) => {
               return(

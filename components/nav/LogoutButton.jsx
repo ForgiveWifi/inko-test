@@ -21,18 +21,18 @@ function LogoutButton({isOpen}) {
   
   return (
     <>
-    { isOpen ?
       <motion.a 
         href="/api/auth/logout"
         variants={variations}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="orange-text text-center link"
-        style={{cursor: isOpen ? "pointer" : "auto", border: "4px solid #FF9244", padding: "5px 20px", borderRadius: 20, marginTop: 5, fontSize: 18}}
+        className="orange-text text-center link max-radius"
+        style={{cursor: isOpen ? "pointer" : "auto", display: isOpen ? null : "none", border: "4px solid #FF9244", padding: "5px 10px", borderRadius: 20, marginTop: 5, fontSize: 14, fontWeight: 600}}
         disabled={!isOpen}
       >
         logout
-      </motion.a> : null }
+
+      </motion.a>
     </>
   );
 }

@@ -28,7 +28,7 @@ function ProductDisplay({loading, product}) {
           
         <div className="flexbox-column-start full-width">
           <div className="flexbox-row-start">
-            <h1 style={{ fontSize: "45px", marginBottom: 10}}>{name}</h1>
+            <h2 style={{ fontSize: "45px", marginBottom: 10}}>{name}</h2>
             {/* <button className="flexbox background1 radius5 margin-left" style={{ padding: "5px 12px"}}>
               <TbDownload style={{ fontSize: 25}} />
             </button> */}

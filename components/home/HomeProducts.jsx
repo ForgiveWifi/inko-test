@@ -56,16 +56,16 @@ function HomeProducts() {
                   <motion.div
                     whileHover={{ scale: 1.02}}
                     whileTap={{ scale: 0.98 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <div style={{ position: "relative"}}> 
+                    <div style={{ position: "relative"}} className="orange-shadow"> 
                       <div style={{ width: 250, height: 250, backgroundColor: "white", top: 0}}></div> 
-                      <motion.div whileHover={{ opacity: 0.75}}>
-                        <Image src={src} alt={alt} width={250} height={250} className="black-border" style={{ position: "absolute", top: 0, objectFit: "cover", objectPosition: position}} />
+                      <motion.div whileHover={{ opacity: 0.75}} transition={{ duration: 0.2 }}>
+                        <Image src={src} alt={alt} width={250} height={250} style={{ position: "absolute", top: 0, objectFit: "cover", objectPosition: position}}/>
                       </motion.div>
                     </div>
                   </motion.div>
-                  <h4 style={{ height: 25, marginTop: 10 }}>{name.toUpperCase()}</h4> 
+                  <h4 className="margin-right" style={{ height: 25, marginTop: 15 }}>{name.toUpperCase()}</h4> 
                 </motion.a>
               )
             })

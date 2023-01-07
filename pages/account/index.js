@@ -8,6 +8,7 @@ import { showError, showLoading, updateError, updateSuccess } from "../../compon
 import { TextInput } from "@mantine/core";
 import isEqual from 'lodash.isequal'
 import AccountLayout from '../../layouts/AccountLayout';
+import Heading from "../../components/ui/Heading"
 
 function Profile() {
 
@@ -88,9 +89,9 @@ function Profile() {
       { loading ? <Loading /> : null}
       {
         user && 
-        <div className="flexbox-column" style={{ margin: 40}}>
-          <h1>Profile</h1>
-          <div className="flexbox-row" style={{ margin: "15px 0px"}}>
+        <div className="flexbox-column-start full-width">
+          <Heading text="Account" />
+          <div className="flexbox-row" style={{ marginBottom: 15 }}>
             <h5 style={{ marginRight: 15}}>email:</h5>
             <div>{user.email}</div>
           </div>

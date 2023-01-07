@@ -11,7 +11,11 @@ function NavLinks() {
   const { user, error, isLoading } = useUser()
 
   if (isLoading) {
-    return <Loader color="white" />
+    return (
+      <div>
+        <Loader color="white" />
+      </div>
+    )
   }
   if (error) {
     return <div>{error.message}</div>

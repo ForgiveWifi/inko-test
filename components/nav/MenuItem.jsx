@@ -31,7 +31,7 @@ function MenuItem({isOpen, setIsOpen, link}) {
         transition={{ duration: 0.2 }}
         whileTap={{ scale: 0.90 }}
       >
-        <Link href={to} onClick={() => setIsOpen(false)} className="link flexbox-row" style={{ gap: 10}}>
+        <Link href={to} onClick={() => setIsOpen(false)} className="link flexbox-row" style={{ gap: 10, display: isOpen ? null : "none",}}>
           {/* {icon} */}
           <h3 className="orange-text">{name}</h3>
         </Link>

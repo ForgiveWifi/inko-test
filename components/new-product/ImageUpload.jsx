@@ -66,7 +66,7 @@ export function ImageUpload({currentImage, setCurrentImage, open, close}) {
 
           <div className='flexbox-column' style={{ margin: "10px 0px 10"}}>
           <div className='text-center light-grey-text' style={{ fontSize: 16, fontWeight: 500 }}>
-             We reccomend .png and .jpeg @300dpi.  You must own rights to images.
+             We recommend .png and .jpeg @300dpi.  You must own rights to images.
           </div>
           </div>
         </div>

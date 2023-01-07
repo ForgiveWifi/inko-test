@@ -17,10 +17,10 @@ function AttributesSelect({attributes, setAttributes, sizes, setSizes, error}) {
             className="full-width"
           />
 
-        <div className="label">colors</div>
+        <div style={{ fontSize: 14, marginTop: 6}}>colors</div>
         <ColorSelect attributes={attributes} setAttributes={setAttributes}/>
 
-        <div className="label">sizes</div>
+        <div style={{ fontSize: 14 }}>sizes</div>
         <SizeSelect sizes={sizes} setSizes={setSizes} sizeOptions={["S", "M", "L", "XL", "2XL", "3XL"]} />
       </div>
     </>

@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-function Logo() {
+function Logo({width}) {
   return (
     <>
-      <div className="flexbox" style={{ position: "relative", width: 200, height: 40 }}>
-        <Image src="/inko-studio-logo.png" alt="Inkhouse Logo" fill={true} style={{ objectFit: "contain", filter: "invert(1)" }}/>
+      <div className="flexbox" style={{ position: "relative", width: width, height: width * 3 / 16 }}>
+        <Image src="/inko-studio-logo-white.png" alt="Inkhouse Logo" fill={true} style={{ objectFit: "contain" }}/>
       </div>
     </>
   );

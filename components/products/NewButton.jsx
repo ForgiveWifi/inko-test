@@ -13,7 +13,7 @@ function NewButton() {
         style={{ padding: 10 }}>
         <div className="flexbox-column">
           <AddIcon style={{ fontSize: 30, fill: "rgb(107, 116, 130)"}}/>
-          <h4 className="grey-text">Create product</h4>
+          <h4 className="grey-text">New product</h4>
         </div>
       </motion.button>
     </>

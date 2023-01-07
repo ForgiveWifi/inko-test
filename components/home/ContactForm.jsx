@@ -9,6 +9,7 @@ import { showLoading, updateError, updateSuccess } from '../ui/alerts';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Logo from '../ui/Logo';
 import styles from "../../styles/Home.module.css"
+import Image from 'next/image';
 
 export default function ContactForm() {
 
@@ -38,16 +39,28 @@ export default function ContactForm() {
 
   return (
     <>
-      <section className="flexbox-column full-width shadow1" style={{ maxWidth: "500px", backgroundColor: "white", borderRadius: "25px", padding: "25px", zIndex: "2"}}>
-
-        <form ref={form} onSubmit={sendEmail} className="form-grid" autoComplete="off" style={{ maxWidth: 400}}>
-          
-          <div className='flexbox-column span2' style={{ marginBottom: 10}}>
+      <motion.div 
+          initial={{ y: 50, opacity: 0}}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3}}
+          viewport={{ once: true }}
+          className='background1 shadow2' 
+          style={{ height: "150px", position: "relative", top: 15, borderRadius: "15px 15px 0px 0px", padding: "0px 20px"}}
+        >
+          <div className='flexbox-column' style={{ marginTop: "20px"}}>
+            <h1 style={{ fontSize: "40px" }}>Get a Quote</h1>
+            <p className="text-center" style={{ maxWidth: "250px", marginLeft: "3px" }}>Leave your details and we will contact you as soon as we can.</p>
+          </div>
+        </motion.div>
+      <section className="flexbox-column full-width shadow1" style={{ maxWidth: "450px", backgroundColor: "white", borderRadius: "15px", padding: "25px 35px 35px", zIndex: "2"}}>
+        <div className="flexbox" style={{ position: "relative", width: 200, height: 37.5, marginBottom: 10 }}>
+          <Image src="/inko-studio-logo-orange.png" alt="Inkhouse Logo" fill={true} style={{ objectFit: "contain" }}/>
+        </div>
+        <form ref={form} onSubmit={sendEmail} className="form-grid full-width" autoComplete="off" >
+            
+          {/* <div className='flexbox-column span2' style={{ marginBottom: 10}}>
             <h1 className="orange-text" style={{ fontSize: "40px"}}>Get a Quote</h1>
             <p className="orange-text text-center" style={{ maxWidth: "200px", marginLeft: "3px" }}>Leave your details and we will contact you as soon as we can.</p>
-          </div>
-          {/* <div className='flexbox span2' style={{ marginBottom: "10px"}}>
-            <Logo />
           </div> */}
           <InputField name="name" type="text" required={true}/>
           <InputField name="brand" type="text" />
@@ -62,7 +75,7 @@ export default function ContactForm() {
               iconWidth={25}
               variant="unstyled"
               className={styles["input-field"]}
-              style={{ paddingTop: 1}}
+              style={{ paddingTop: 1 }}
               name="budget" 
               type="number" 
               min={0}

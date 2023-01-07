@@ -6,7 +6,7 @@ function Footer() {
   return (
     <>
       <footer className={`${styles.footer} flexbox-row`}>
-        <Logo />
+        <Logo width={150}/>
         {/* <div>Copyright &copy; {`${(new Date().getFullYear())} Inko Studios`}</div> */}
         <div className="flexbox-row" style={{ marginLeft: "auto", gap: 8}}>
           {
