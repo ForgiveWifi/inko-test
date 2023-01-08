@@ -3,9 +3,9 @@ import DesignBox from "./DesignBox";
 function DesignList({designs}) {
   return (
     <>
-      <div className="flexbox-column">
+      {/* <div className="flexbox-column"> */}
         <h4 style={{ marginBottom: 10}}>Design List</h4>
-        <div className="product-grid" style={{ maxWidth: 350}}>
+        <div className="product-grid" style={{}}>
           {
             designs.map((design, i) => {
               return (
@@ -13,8 +13,9 @@ function DesignList({designs}) {
               )
             })
           }
+          {designs.length === 1 ? <div></div> : null}
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }

@@ -2,14 +2,12 @@ import { toTime, toDate } from "../../lib/time";
 import DesignList from "./DesignList";
 import Divider from "../ui/Divider";
 import CopyID from "./CopyID";
-import { Button } from "@mantine/core";
 import Loading from "../ui/Loading";
-// import CopyIcon from "../ui/icons/CopyIcon";
-import { TbDownload } from "react-icons/tb"
 import ProductCarousel from "./ProductCarousel";
 import { useState } from "react";
-import HorzDivider from "../ui/HorzDivider";
 import InfoIcon from "../ui/InfoIcon";
+import colors from "../data/colors";
+import garments from "../data/garments";
 
 function ProductDisplay({loading, product}) {
 
@@ -22,7 +20,7 @@ function ProductDisplay({loading, product}) {
   return (
     <>
       {loading && <Loading /> }
-      <div className="flexbox-column flex-wrap" style={{ width: "100%", maxWidth: 500, gap: 10, marginTop: 20, padding: 30 }}>
+      <div className="flexbox-column flex-wrap" style={{ width: "100%", maxWidth: 650, gap: 10, marginTop: 20, padding: 30 }}>
         
         <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/>
           
@@ -34,10 +32,14 @@ function ProductDisplay({loading, product}) {
             </button> */}
           </div>
           <div>{description}</div>
-          <h5>color:</h5> 
-          <div>{color}</div>
           <h5>style:</h5> 
-          <div>{style}</div>
+          <div style={{ marginBottom: 5 }}>{garments[style]}</div>
+          <h5>color:</h5> 
+          <div className="flexbox-row">
+          <div>{color}</div>
+          <div className="max-radius" style={{ backgroundColor:colors[color], width: 30, height: 30, marginLeft: 8 }}></div>
+          
+          </div>
           <h5>sizes:</h5>
           <div className="flexbox-column-start">
           {/* <HorzDivider /> */}

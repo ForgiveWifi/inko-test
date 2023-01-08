@@ -15,20 +15,18 @@ async function handler(req,res) {
   switch (method) {
     case 'GET':
       try {
-        // const page  = parseInt(req.query.page)
-        // const limit = parseInt(req.query.limit)
+        const page  = parseInt(req.query.page)
+        const limit = parseInt(req.query.limit)
 
-        // if (!(page && limit)) {
-        //   return(res.status(400).json(errorMessage("Missing page index or limit")))
-        // }
+        if (!(page && limit)) {
+          return(res.status(400).json(errorMessage("Missing page index or limit")))
+        }
 
-        // const startIndex = (page - 1) * limit
-        const startIndex = 0
-        const limit = 10
+        const startIndex = (page - 1) * limit
 
         const total = await Product.find({ account: stripe_id }).count()
         const results = {}
-        // results.pages = Math.ceil(total / limit)  
+        results.pages = Math.ceil(total / limit)  
         results.data = await Product.find({ account: stripe_id}).sort({created_at: -1}).limit(limit).skip(startIndex).exec()
         res.status(200).json(results)
       }

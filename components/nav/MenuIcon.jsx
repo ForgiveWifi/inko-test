@@ -18,7 +18,7 @@ function MenuIcon() {
     },
     {
       name: "products",
-      to: "/account/products/?page=1"
+      to: "/account/products?page=1"
     },
     {
       name: "tags",
@@ -26,7 +26,7 @@ function MenuIcon() {
     },
     {
       name: "invoices",
-      to: "/account/invoices"
+      to: "/account/invoices?page=1"
     },
     {
       name: "account",
@@ -73,7 +73,7 @@ function MenuIcon() {
         className="flexbox"
       >
         <motion.div className={`${styles["menu-background"]} shadow1`} variants={sidebar} />
-        <motion.ul variants={variants} className={`${styles["menu-list"]} flexbox-column-start full-width`} style={{ width: 250, marginTop: 60, paddingLeft: 75, paddingRight: 60, gap: 15}} >
+        <motion.ul variants={variants} className={`${styles["menu-list"]} flexbox-column-start full-width`} style={{ display: isOpen ? null : "none", width: 250, marginTop: 60, paddingLeft: 75, paddingRight: 60, gap: 15}} >
           {
             navLinks.map((link, i) => {
               return(

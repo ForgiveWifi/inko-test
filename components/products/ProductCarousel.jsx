@@ -5,7 +5,7 @@ import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr"
 function ProductCarousel({images, name, setCurrentSlide}) {
 
   const [loaded, setLoaded] = useState(false)
-  console.log("images", images[0])
+  
   if (false) { //(images.length > 1) {
   return (
     <>

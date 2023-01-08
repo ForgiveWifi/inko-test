@@ -1,5 +1,5 @@
 import { Tooltip } from '@mantine/core';
-import { colors } from "../data/colors";
+import { colors } from "../data/old-colors";
 import { HiCheck } from "react-icons/hi"
 
 function ColorSelect({ attributes, setAttributes}) {

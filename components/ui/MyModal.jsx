@@ -6,6 +6,7 @@ function MyModal({children, open}) {
       opened={open}
       closeOnClickOutside={false}
       withCloseButton={false} 
+      onClose={() => null}
       size="auto" 
       centered 
       overlayBlur={3} 
