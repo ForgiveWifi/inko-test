@@ -55,7 +55,7 @@ function PriceList({sizes}) {
             prices.map((price, i) => {
               if (!price) {
                 return(
-                  <div className="flexbox-row" style={{ gap: 5 }}>
+                  <div className="flexbox-row" style={{ gap: 5 }} key={i}>
                     <p>No Price</p>
                     <InfoIcon />
                   </div>
