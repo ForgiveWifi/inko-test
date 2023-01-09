@@ -30,6 +30,9 @@ function PriceList({sizes}) {
     }
   },[])
 
+  if (!sizes) {
+    return null
+  }
   return(
     <>
       <div className="flexbox-row">
