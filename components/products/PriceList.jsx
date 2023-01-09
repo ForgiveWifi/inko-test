@@ -62,7 +62,7 @@ function PriceList({sizes}) {
                 )
               } 
               return(
-                <p>{toDollars(price)}</p>
+                <p key={i}>{toDollars(price)}</p>
               )
             })
           }
