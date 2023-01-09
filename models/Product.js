@@ -1,8 +1,5 @@
 import mongoose from "mongoose"
 const { Schema, model } = mongoose 
-import { customAlphabet } from 'nanoid'
-
-const nanoid = customAlphabet('1234567890', 10)
 
 const PlacementSchema = Schema({
   placement: {  
@@ -50,20 +47,29 @@ const ProductSchema = Schema({
   _id: {
     type: String,
     required: true,
-    default: () => nanoid(),
   },
   name: {
     type: String,
     required: true
   },
+  description: {
+    type: String,
+  },
   account: {
     type: String,
     required: true
   },
-  sizes: {
-    type: [String],
-    required: true
-  },
+  sizes: [{
+    _id: false,
+    size: {
+      type: String,
+      required: true
+    },
+    id: { 
+      type: String,
+      required: true
+    }
+  }],
   color: {
     type: String,
     required: true

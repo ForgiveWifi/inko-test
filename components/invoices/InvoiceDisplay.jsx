@@ -48,7 +48,7 @@ function InvoiceDisplay({invoice}) {
         </div>
 
         <HorzDivider />
-
+ 
         <Lines lines={lines} />
 
         <div className="flexbox-column" style={{margin: "10px 22px 0px auto"}}>

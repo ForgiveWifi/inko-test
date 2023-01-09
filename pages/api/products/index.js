@@ -4,6 +4,9 @@ import errorMessage from "../../../lib/errorMesage"
 import getStripeID from "../../../lib/getStripeID"
 import stripe from "../../../lib/stripe"
 import Product from "../../../models/Product"
+import { customAlphabet } from 'nanoid'
+
+const nanoid = customAlphabet('1234567890', 10)
 
 async function handler(req,res) {
 
@@ -31,29 +34,20 @@ async function handler(req,res) {
         res.status(200).json(results)
       }
       catch (err) {
-        console.log(err)
         res.status(500).json(errorMessage(err.message))
       }
       break
     case 'POST':
       try {
         const {name, description, sizes, attributes, images, designs} = req.body
-  
-        const product = await Product.create({
-          name: name,
-          account: stripe_id, 
-          sizes: sizes, 
-          color: attributes.color,
-          style: attributes.style, 
-          designs: designs, 
-          images: images
-        })
+        console.log("description", description)
+        const id = nanoid()
   
         const new_product = {
           images: images,
           metadata: {
             stripe_id: stripe_id,
-            design_id: product._id,
+            design_id: id,
             ...attributes,
           },
           shippable: true
@@ -62,12 +56,29 @@ async function handler(req,res) {
         if (description.length !== 0) {
           new_product.description = description
         }
-  
+
+        const ids = []
+
         for (let i = sizes.length - 1; i >= 0; i--) {
           new_product.name = `${name} - ${sizes[i]}`
           new_product.metadata.size = sizes[i]
-          await stripe.products.create(new_product)
+          const { id } = await stripe.products.create(new_product)
+          ids.unshift({ size: sizes[i], id: id})
         }
+
+        console.log(description)
+        const product = await Product.create({
+          _id: id,
+          name: name,
+          description: description || null,
+          account: stripe_id, 
+          sizes: ids, 
+          color: attributes.color,
+          style: attributes.style, 
+          designs: designs, 
+          images: images
+        })
+        console.log("product", product)
         res.status(200).json({message: "Success!"}) 
       }
       catch (err) {

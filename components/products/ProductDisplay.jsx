@@ -8,6 +8,7 @@ import { useState } from "react";
 import InfoIcon from "../ui/InfoIcon";
 import colors from "../data/colors";
 import garments from "../data/garments";
+import PriceList from "./PriceList";
 
 function ProductDisplay({loading, product}) {
 
@@ -16,22 +17,25 @@ function ProductDisplay({loading, product}) {
   if (!product) {
     return <Loading />
   } else {
+
   const { _id, name, color, style, description, sizes, images, created_at,} = product
+
   return (
     <>
       {loading && <Loading /> }
-      <div className="flexbox-column flex-wrap" style={{ width: "100%", maxWidth: 650, gap: 10, marginTop: 20, padding: 30 }}>
+      <div className="flexbox-column flex-wrap" style={{ width: "100%", maxWidth: 650, gap: 10, marginTop: 5, padding: 30 }}>
         
         <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/>
           
         <div className="flexbox-column-start full-width">
-          <div className="flexbox-row-start">
-            <h2 style={{ fontSize: "45px", marginBottom: 10}}>{name}</h2>
+          <div className="flexbox-column-start" style={{ marginBottom: 20 }} >
+            <h2 style={{ height: 55, fontSize: "40px"}}>{name}</h2>
             {/* <button className="flexbox background1 radius5 margin-left" style={{ padding: "5px 12px"}}>
               <TbDownload style={{ fontSize: 25}} />
             </button> */}
+            <h6>{description}</h6>
           </div>
-          <div>{description}</div>
+        
           <h5>style:</h5> 
           <div style={{ marginBottom: 5 }}>{garments[style]}</div>
           <h5>color:</h5> 
@@ -41,23 +45,7 @@ function ProductDisplay({loading, product}) {
           
           </div>
           <h5>sizes:</h5>
-          <div className="flexbox-column-start">
-          {/* <HorzDivider /> */}
-            {sizes.map((size, i) => {
-              return(
-                <div className="flexbox-row" key={i}>
-                  <div>{size}</div>
-                    <Divider />
-                  <div className="flexbox-row">
-                    <h5>$</h5>
-                    <h5>---</h5>
-                    <InfoIcon />
-                  </div>
-                </div>
-              )
-            })}
-          {/* <HorzDivider /> */}
-          </div>
+          <PriceList sizes={sizes}/>
           <div className="flexbox-row" style={{ marginTop: 5, gap: 10}}>
             <h5 style={{ marginTop: 2}}>ID: {product._id}</h5>
             <CopyID text="Copy ID" value={_id} />

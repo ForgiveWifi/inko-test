@@ -13,6 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 // import ConfirmModal from "../../../components/new-product/ConfirmModal.jsx";
 import { uploadFirebase, screenshot } from "../../../lib/firebaseFunctions";
 import { deleteObject } from "firebase/storage";
+import BackButton from "../../../components/ui/BackButton"
 
 function NewProduct() {
 
@@ -55,11 +56,6 @@ function NewProduct() {
     try {
       const {previews, design_data, refs} = await uploadAllFirebase()
       await postProduct(previews, design_data, refs)
-      setError(false)
-      setSizes([])
-      setAttributes({style: "3001", color: { value: "White", hex: "white", light: true }})
-      setDetails({name: "", description: ""})
-      setImageList([])
     }
     catch (err) {
     }
@@ -77,6 +73,7 @@ function NewProduct() {
       updateError("firebase", "Server Error: firebase", "Contact us!")
     }
   }
+
   async function uploadPreviews() {
     const previews = []
     if (frontImages.length !== 0) {
@@ -119,9 +116,7 @@ function NewProduct() {
       })
     }
   }
-
   
-
   async function postProduct(previews, design_data, refs) { 
     const {name, description} = details
     try {
@@ -139,6 +134,11 @@ function NewProduct() {
         designs: formatted_design 
       }
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/products`, product)
+      setError(false)
+      setSizes([])
+      setAttributes({style: "3001", color: { value: "White", hex: "white", light: true }})
+      setDetails({name: "", description: ""})
+      setImageList([])
       updateSuccess(name, "Product has been uploaded!", name) 
     }
     catch (err) {
@@ -152,18 +152,21 @@ function NewProduct() {
       {
         !mobile ? 
         <div style={{ marginTop: 30, padding: 20}}><NoBox text="Use a computer to create designs" /></div> :
-        <div className="flexbox flex-wrap full-width radius10" style={{ margin: "30px 0px 15px", alignItems: "flex-start", gap: 15}}>
-          <div className="flexbox-column background3 full-width full-height radius15" style={{ maxWidth: "300px", padding: "5px 15px 15px"}}>
-            <h2>New Product</h2>
-            <ProductDetails details={details} setDetails={setDetails} error={error} />
-            <AttributesSelect attributes={attributes} setAttributes={setAttributes} sizes={sizes} setSizes={setSizes} error={error}/>
+        <>
+          <BackButton />
+          <div className="flexbox flex-wrap full-width radius10" style={{ margin: "30px 0px 15px", alignItems: "flex-start", gap: 15}}>
+            <div className="flexbox-column background3 full-width full-height radius15" style={{ maxWidth: "300px", padding: "5px 15px 15px"}}>
+              <h2>New Product</h2>
+              <ProductDetails details={details} setDetails={setDetails} error={error} />
+              <AttributesSelect attributes={attributes} setAttributes={setAttributes} sizes={sizes} setSizes={setSizes} error={error}/>
+            </div>
+            <div className="flexbox-column">
+              <ProductPreview frontImages={frontImages} backImages={backImages} color={attributes.color} currentImage={currentImage} setCurrentImage={setCurrentImage} imageList={imageList} setImageList={setImageList}/>
+              <Button onClick={openConfirmModal} className="orange-button" style={{ margin: "10px 3px 5px auto"}} leftIcon={<AddIcon />} uppercase>submit</Button>
+            </div>
+            {/* <ConfirmModal openConfirm={openConfirm} close={() => setOpenConfirm(false)} details={details} attributes={attributes} sizes={sizes}/> */}
           </div>
-          <div className="flexbox-column">
-            <ProductPreview frontImages={frontImages} backImages={backImages} color={attributes.color} currentImage={currentImage} setCurrentImage={setCurrentImage} imageList={imageList} setImageList={setImageList}/>
-            <Button onClick={openConfirmModal} className="orange-button" style={{ margin: "10px 3px 5px auto"}} leftIcon={<AddIcon />} uppercase>submit</Button>
-          </div>
-          {/* <ConfirmModal openConfirm={openConfirm} close={() => setOpenConfirm(false)} details={details} attributes={attributes} sizes={sizes}/> */}
-        </div>
+        </>
       }
     </>
   );

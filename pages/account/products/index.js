@@ -57,7 +57,7 @@ function Products() {
       </MyModal>
       <Heading text="Products" />
       <ProductList products={products} setSelected={setSelected}/>
-      <MyPagination loading={loading} currentPage={currentPage} setPage={(page) => router.push(`products?page=${page}`)} totalPages={totalPages}  />
+      <MyPagination currentPage={currentPage} setPage={(page) => router.push(`products?page=${page}`)} totalPages={totalPages}  />
     </>
   );
 }

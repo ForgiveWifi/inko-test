@@ -1,7 +1,7 @@
 import { Pagination } from "@mantine/core"
 
-function MyPagination({loading, currentPage, setPage, totalPages}) {
-  if (totalPages <= 1 || loading) {
+function MyPagination({currentPage, setPage, totalPages}) {
+  if (!totalPages || totalPages <= 1) {
     return null
   }
   else return (
