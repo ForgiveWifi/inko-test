@@ -53,7 +53,9 @@ function PriceList({sizes}) {
             !prices || loading ?
             Array(sizes.length).fill(0).map((_,i) => {
               return(
-                <Skeleton style={{ width: 70, borderRadius: 10}} />
+                <div key={i}>
+                  <Skeleton style={{ width: 70, borderRadius: 10}} />
+                </div>
               )
             }) :
             prices.map((price, i) => {
