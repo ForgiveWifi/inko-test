@@ -12,13 +12,13 @@ function HomeProducts() {
     },
     // {
     //   name: "Hoodies",
-    //   src: "3719_Vintage-White_SF21_04.jpg",
+    //   src: "/3719_Vintage-White_SF21_04.jpg",
     //   alt: "3719 Vintage White SF21",
     //   position: "0px -45px"
     // },
     // {
     //   name: "Tank Tops",
-    //   src: "3480_Athletic-Heather_SPSU22D2_04.jpg",
+    //   src: "/3480_Athletic-Heather_SPSU22D2_04.jpg",
     //   alt: "3480 Athletic-Heather SPSU22D2",
     //   position: "0px -20px"
     // }
@@ -59,9 +59,9 @@ function HomeProducts() {
                     transition={{ duration: 0.2 }}
                   >
                     <div style={{ position: "relative"}} className="orange-shadow"> 
-                      <div style={{ width: 250, height: 250, backgroundColor: "white", top: 0}}></div> 
+                      <div className="radius10" style={{ width: 250, height: 250, backgroundColor: "white", top: 0}}></div> 
                       <motion.div whileHover={{ opacity: 0.75}} transition={{ duration: 0.2 }}>
-                        <Image src={src} alt={alt} width={250} height={250} style={{ position: "absolute", top: 0, objectFit: "cover", objectPosition: position}}/>
+                        <Image src={src} alt={alt} width={250} height={250} className="radius10" style={{ position: "absolute", top: 0, objectFit: "cover", objectPosition: position}}/>
                       </motion.div>
                     </div>
                   </motion.div>

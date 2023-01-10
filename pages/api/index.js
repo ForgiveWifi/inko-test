@@ -1,4 +1,4 @@
-function handler(req,res) {
+async function handler(req,res) {
   res.status(200).json({ message: "Inko API"});
 }
 

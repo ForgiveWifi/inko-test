@@ -51,11 +51,15 @@ function PriceList({sizes}) {
         <div className="flexbox-column-start">
           {
             !prices || loading ?
-            <Skeleton style={{ width: 70, borderRadius: 10}} /> :
+            Array(sizes.length).fill(0).map((_,i) => {
+              return(
+                <Skeleton style={{ width: 70, borderRadius: 10}} />
+              )
+            }) :
             prices.map((price, i) => {
               if (!price) {
                 return(
-                  <div className="flexbox-row" style={{ gap: 5 }} key={i}>
+                  <div className="flexbox-row" style={{ gap: 5, height: 27.5 }} key={i}>
                     <p>No Price</p>
                     <InfoIcon />
                   </div>

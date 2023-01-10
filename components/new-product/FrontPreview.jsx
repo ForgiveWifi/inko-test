@@ -4,7 +4,7 @@ function FrontPreview({currentImage, makeCurrentImage, color, zIndex, frontImage
   return (
     <>
       <div id="front-preview" className="flexbox" style={{ position: "absolute", zIndex: zIndex, width: 650, height: 650}}>
-        <div style={{ position: "absolute", backgroundColor: color.hex, width: "630px", height: "630px"}}></div>
+        <div className="radius15" style={{ position: "absolute", backgroundColor: color.hex, width: "650px", height: "650px"}}></div>
         <img 
           src={"/front-blank-tee.png"} 
           alt="front-blank-tee" className="radius15" 

@@ -119,7 +119,7 @@ function Profile() {
             autoComplete="off"
           />
           </div>
-          <h2 style={{ marginTop: 30}}>Shipping Address</h2>
+          <h3 style={{ marginTop: 30}}>Shipping Address</h3>
           <AddressForm shipping={shipping} setShipping={setShipping} error={error} />
           {/* <h2>Address</h2>
           <AddressForm shipping={address} setShipping={setAddress} error={error} /> */}

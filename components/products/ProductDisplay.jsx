@@ -5,29 +5,27 @@ import CopyID from "./CopyID";
 import Loading from "../ui/Loading";
 import ProductCarousel from "./ProductCarousel";
 import { useState } from "react";
-import InfoIcon from "../ui/InfoIcon";
 import colors from "../data/colors";
 import garments from "../data/garments";
 import PriceList from "./PriceList";
 
-function ProductDisplay({loading, product}) {
+function ProductDisplay({product}) {
 
   const [currentSlide, setCurrentSlide] = useState(0)
-
-  if (!product) {
-    return <Loading />
-  } else {
+  const [loaded, setLoaded] = useState(false)
 
   const { _id, name, color, style, description, sizes, images, created_at,} = product
 
   return (
     <>
-      {loading && <Loading /> }
-      <div className="flexbox-column flex-wrap" style={{ width: "100%", maxWidth: 650, gap: 10, marginTop: 5, padding: 30 }}>
+      <div className="flexbox-column flex-wrap" style={{ maxWidth: 650, gap: 10, marginTop: 5, padding: 30 }}>
         
-        <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/>
-          
-        <div className="flexbox-column-start full-width">
+        {/* <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/> */}
+        <img src={images[0]} alt={name} onLoad={() => setLoaded(true)} className="radius10" style={loaded ? { width: "100%"} : { display: "none"}} />
+        
+        { !loaded ? <div className="background1 full-width radius10" style={{ width: "100%", paddingBottom: "100%" }}><div className="full-width"></div></div> : null }
+
+        <div className="flexbox-column-start margin-right">
           <div className="flexbox-column-start" style={{ marginBottom: 20 }} >
             <h2 style={{ height: 55, fontSize: "40px"}}>{name}</h2>
             {/* <button className="flexbox background1 radius5 margin-left" style={{ padding: "5px 12px"}}>
@@ -63,7 +61,7 @@ function ProductDisplay({loading, product}) {
       </div>
       
     </>
-  )};
+  );
 }
 
 export default ProductDisplay;

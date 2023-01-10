@@ -4,7 +4,7 @@ function BackPreview({currentImage, makeCurrentImage, color, zIndex, backImages}
   return (
     <>  
       <div id="back-preview" className="flexbox" style={{ position: "absolute", zIndex: zIndex, width: 650, height: 650}}>
-        <div style={{ position: "absolute", backgroundColor: color.hex, width: "630px", height: "630px"}}></div>
+        <div className="radius15" style={{ position: "absolute", backgroundColor: color.hex, width: "650px", height: "650px"}}></div>
         <img src={"/back-blank-tee.png"} 
             alt="back-blank-tee" className="radius15" 
             style={{ position: "absolute", width: 650, height: 650, filter: color.light ? null : "brightness(200%)"}} 

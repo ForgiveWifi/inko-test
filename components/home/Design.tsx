@@ -32,7 +32,7 @@ function Design() {
             className="full-width"
             style={{ maxWidth: "405px", marginTop: "15px" }}
             >
-              <p className={center ? "text-center" : ""} style={{ maxWidth: 380, marginBottom: 20}}>Use our online design tool to create your own designs or we offer consultation services that provide you with custom designs that can be printed on your merchandise. </p>
+              <p className={center ? "text-center" : ""} style={{ maxWidth: 380, marginBottom: 15}}>Use our online design tool to create your own products or we offer consultation services that provide you with custom designs that can be printed on your merchandise. </p>
 
               <p className={center ? "text-center" : ""} style={{ marginTop: "10px" }}>Our goal is to provide an interactive design process that ensures every project meets their needs and expectations, and you are left with a seamless experience of turning your concepts into reality.  Contact us today to learn more about our services and get started on your project.</p>
             </div>
