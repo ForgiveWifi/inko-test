@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/client'
+import { useEffect, useState } from "react"
 import { useUser } from '@auth0/nextjs-auth0/client'
 import axios from "axios";
-import { Button } from "@mantine/core";
-import { useMediaQuery } from '@mantine/hooks';
-import formatDesign from "../../../lib/formatDesign";
-import AttributesSelect from "../../../components/new-product/AttributesSelect";
+import { Button, Select } from "@mantine/core";
+import { usePrevious, useMediaQuery } from '@mantine/hooks';
+import { formatDesign } from "../../../lib/functions";
 import ProductDetails from "../../../components/new-product/ProductDetails";
 import { showError, showLoading, updateSuccess, updateError } from '../../../components/ui/alerts'
 import NoBox from "../../../components/ui/NoBox.jsx";
@@ -14,38 +14,47 @@ import AddIcon from '@mui/icons-material/Add';
 import { uploadFirebase, screenshot } from "../../../lib/firebaseFunctions";
 import { deleteObject } from "firebase/storage";
 import BackButton from "../../../components/ui/BackButton"
+import garments from "../../../data/garments";
+import ColorSelect from "../../../components/new-product/ColorSelect";
+import SizeSelect from "../../../components/new-product/SizeSelect";
+import { ImageUpload } from "../../../components/new-product/ImageUpload";
+import useImages from "../../../components/new-product/useImages";
 
 function NewProduct() {
 
   const { user } = useUser()
-  const mobile = useMediaQuery('(min-width: 670px)')
+  const mobile = useMediaQuery('(max-width: 670px)')
 
-  const [currentImage, setCurrentImage] = useState({ placement: "front", width: 200, x_offset: 60, y_offset:0})
-  const [sizes, setSizes] = useState([])
-  const [attributes, setAttributes] = useState({style: "3001", color: { value: "White", hex: "white", light: true }})
+  const [garment, setGarment] = useState(garments[0].value)
+  const { current, setCurrent, list, addFile, clearCurrent, clearList, addCurrentToList, selectFromList, scaleDimensions } = useImages(garments[0].value.pallet)
   const [details, setDetails] = useState({name: "", description: ""})
-  const [imageList, setImageList] = useState([])
+  const previousPallet = usePrevious(garment.pallet)
+  const [color, setColor] = useState(null)
+  const [sizes, setSizes] = useState([])
   const [error, setError] = useState(false)
   // const [openConfirm, setOpenConfirm] = useState(false)
-  
-  const frontImages = imageList.filter((image) => image.placement === "front")
-  const backImages = imageList.filter((image) => image.placement === "back")
+
+  useEffect(() => {
+    if (previousPallet) {
+      scaleDimensions(previousPallet)
+    }
+  }, [garment])
 
   function openConfirmModal() {
     setError(true)
     if (!details.name) {
       showError("name-error", null, `No product name!`)
     } else
-    if (!attributes.style) {
+    if (!color) {
       showError("style-error", null, `No style selected!`)
     } else
     if (sizes.length === 0) {
       showError("size-error", null, `No size selected`)
     } else
-    if (imageList.length === 0) {
+    if (list.length === 0) {
       showError("design-error", null, `Add at least 1 design!`)
     } else 
-    if (currentImage.image) {
+    if (current.art_file) {
       showError("image-error", null, `Place current image!`)
     } else
     // setOpenConfirm(true)
@@ -76,14 +85,14 @@ function NewProduct() {
 
   async function uploadPreviews() {
     const previews = []
-    if (frontImages.length !== 0) {
+    if (list.filter((image) => image.placement === "front").length !== 0) {
       const front = await screenshot(user, "front-preview", details.name)
       previews.push({
         ...front,
         position: "front",
       })
     } 
-    if (backImages.length !== 0) {
+    if (list.filter((image) => image.placement === "back").length !== 0) {
       const back = await screenshot(user, "back-preview", details.name)
       previews.push({
         ...back,
@@ -96,7 +105,7 @@ function NewProduct() {
   async function uploadImages(previews) {
     const front = previews[0]
     const back = previews[1]
-    const art_list = await Promise.all(imageList.map( design => uploadImage(design)))
+    const art_list = await Promise.all(list.map( design => uploadImage(design)))
     const refs = previews.map(preview => preview.ref).concat(art_list.map(art => art.ref))
     const design_data = art_list.map(art => art.design)
     return({design_data, refs})
@@ -121,24 +130,24 @@ function NewProduct() {
     const {name, description} = details
     try {
       showLoading(name, "Uploading...", name)
-      const formatted_design = design_data.map((design) => formatDesign(design))
+      const images = design_data.map((design) => formatDesign(design, pallet))
       const product = {
         name: name, 
         description: description,
         sizes: sizes,
         images: previews.map(preview => preview.url),
         attributes: {
-          ...attributes,
-          color: attributes.color.value.toUpperCase()
+          style: garment.sku,
+          color: color.name
         },
-        designs: formatted_design 
+        designs: images 
       }
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/products`, product)
       setError(false)
+      clearList()
+      setDetails({name: "", description: ""}) 
       setSizes([])
-      setAttributes({style: "3001", color: { value: "White", hex: "white", light: true }})
-      setDetails({name: "", description: ""})
-      setImageList([])
+      setColor(null)
       updateSuccess(name, "Product has been uploaded!", name) 
     }
     catch (err) {
@@ -147,29 +156,63 @@ function NewProduct() {
     }
   }
 
+  function selectSKU(sku) {
+    setColor(null)
+    setGarment(sku)
+  }
+
   return (
     <>
       {
         !mobile ? 
-        <div style={{ marginTop: 30, padding: 20}}><NoBox text="Use a computer to create designs" /></div> :
         <>
           <BackButton />
-          <div className="flexbox flex-wrap full-width radius10" style={{ margin: "30px 0px 15px", alignItems: "flex-start", gap: 15}}>
-            <div className="flexbox-column background3 full-width full-height radius15" style={{ maxWidth: "300px", padding: "5px 15px 15px"}}>
+          <div className="flexbox flex-wrap full-width radius10" style={{ margin: "30px 0px 15px", padding: "0px 50px", alignItems: "flex-start", gap: 15}}>
+            <div className="flexbox-column background3 full-width full-height radius10" style={{ maxWidth: "300px", padding: "5px 15px 15px"}}>
               <h2>New Product</h2>
+              <ImageUpload addFile={addFile}/>
               <ProductDetails details={details} setDetails={setDetails} error={error} />
-              <AttributesSelect attributes={attributes} setAttributes={setAttributes} sizes={sizes} setSizes={setSizes} error={error}/>
+              <div className="flexbox-start full-width">
+                <Select 
+                  label="style"
+                  value={garment} 
+                  onChange={sku => selectSKU(sku)} 
+                  data={garments} 
+                  className="full-width"
+                />
+
+                <div style={{ fontSize: 14, marginTop: 6}}>colors</div>
+                { 
+                  garment ? 
+                  <ColorSelect data={garment?.colors} currentColor={color} setColor={setColor}/> : 
+                  <h5 className="flexbox background3 full-width radius10" style={{ backgroundColor: "rgba(60, 60, 60, 0.08)", padding: "10px 20px", margin: "10px 0px"}}> Select style </h5>
+                }
+
+                <div style={{ fontSize: 14 }}>sizes</div>
+                <SizeSelect sizes={sizes} setSizes={setSizes} sizeOptions={["S", "M", "L", "XL", "2XL", "3XL"]} />
+              </div>
+              
             </div>
             <div className="flexbox-column">
-              <ProductPreview frontImages={frontImages} backImages={backImages} color={attributes.color} currentImage={currentImage} setCurrentImage={setCurrentImage} imageList={imageList} setImageList={setImageList}/>
-              <Button onClick={openConfirmModal} className="orange-button" style={{ margin: "10px 3px 5px auto"}} leftIcon={<AddIcon />} uppercase>submit</Button>
+              <ProductPreview 
+                list={list}
+                garment={garment} 
+                color={color} 
+                currentImage={current} 
+                setCurrentImage={setCurrent} 
+                clearCurrent={clearCurrent}
+                addCurrentToList={addCurrentToList}
+                selectFromList={selectFromList}
+              />
+              <Button onClick={openConfirmModal} className="orange-button" style={{ margin: "10px 3px 5px auto"}} leftIcon={<AddIcon />} uppercase>add</Button>
             </div>
             {/* <ConfirmModal openConfirm={openConfirm} close={() => setOpenConfirm(false)} details={details} attributes={attributes} sizes={sizes}/> */}
           </div>
-        </>
+        </> :
+        <div style={{ marginTop: 30, padding: 20}}><NoBox text="Use a computer to create designs" /></div>
       }
     </>
   );
 }
 
-export default NewProduct;
+export default withPageAuthRequired(NewProduct);

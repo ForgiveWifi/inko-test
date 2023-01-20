@@ -348,40 +348,6 @@ button:hover {
   background-color: #ffa96c
 }
 
-.confirm-button {
-  background-color: rgb(30, 179, 30);
-  border: none;
-  box-shadow: 4px 4px 0 rgb(18, 105, 18);
-  transition: 0.2s;
-}
-
-.confirm-button:active {
-  box-shadow: 0 0 0 #e96100;
-  transform: translate(4px, 4px);
-}
-
-.confirm-button:hover {
-  background-color: rgb(34, 195, 34)
-}
-
-.position-button {
-  font-size: 200;
-  background-color: rgb(107, 116, 130);
-  border: none;
-  font-size: 16px;
-  padding: 5px 30px;
-  transition: 0.2s;
-}
-
-.position-button:hover {
-  background-color: rgb(121, 131, 147);
-  transform: scale(1.02);
-}
-
-.position-button:active {
-  background-color: rgb(93, 101, 114);
-  transform: scale(0.98);
-}
 
 .orange-shadow {
   outline: 4px solid white;
@@ -525,4 +491,8 @@ button:hover {
 
 .mantine-Carousel-indicators {
   bottom: 3%
+}
+
+.mantine-Menu-itemLabel {
+  color: rgb(107, 116, 130)
 }

@@ -11,19 +11,20 @@ import AddIcon from '@mui/icons-material/Add';
 import Heading from '../../components/ui/Heading';
 import DeleteTag from '../../components/tags/DeleteTag';
 import MyModal from '../../components/ui/MyModal';
+import EditTag from '../../components/tags/EditTag';
 
 function Tags() { 
 
   const [tags, setTags] = useState(null)
-  const [selected, setSelected] = useState(null)
-  const [open, setOpen] = useState(false)
+  const [add, setAdd] = useState(false)
+  const [remove, setRemove] = useState(null)
+  const [edit, setEdit] = useState(null)
   const [change, setChange] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const available_sizes = ["S", "M", "L", "XL"]
   const sizes = tags?.map((tag) => tag.size)
   const missingTags = available_sizes.filter((size) => !sizes?.includes(size))
-  const modal = selected !== null
 
   useEffect(() => {
     fetchTags()
@@ -50,15 +51,18 @@ function Tags() {
       <div className='flexbox-column full-width'>
         <Heading text="Neck Tags" />
         <div className='full-width'>
-          { missingTags.length !== 0 ? <Button onClick={() => setOpen(true)} leftIcon={<AddIcon/>} uppercase>add tag</Button> : null}
+          { missingTags.length !== 0 ? <Button onClick={() => setAdd(true)} leftIcon={<AddIcon/>} uppercase>New tag</Button> : null}
         </div>
-        <TagList tags={tags} toggleChange={toggleChange} setSelected={setSelected}/>
-        <MyModal open={open}>
-          <CloseButton onClick={() => setOpen(false)}/>
-          <AddTag missingTags={missingTags} toggleChange={toggleChange} close={() => setOpen(false)}/> 
+        <TagList tags={tags} toggleChange={toggleChange} setRemove={setRemove} setEdit={setEdit}/>
+        <MyModal open={add} size="sm">
+          <CloseButton onClick={() => setAdd(false)}/>
+          <AddTag missingTags={missingTags} toggleChange={toggleChange} close={() => setAdd(false)}/> 
         </MyModal>
-        <MyModal open={modal}>
-          <DeleteTag modal={modal} tag={tags ? tags[selected] : null} setSelected={setSelected} toggleChange={toggleChange}/>
+        <MyModal open={remove !== null}>
+          <DeleteTag tag={remove !== null ? tags[remove] : null} close={() => setRemove(null)} toggleChange={toggleChange}/>
+        </MyModal>
+        <MyModal open={edit !== null} >
+          <EditTag tag={edit !== null  ? tags[edit] : null} close={() => setEdit(null)} toggleChange={toggleChange}/>
         </MyModal>
       </div>
     </>

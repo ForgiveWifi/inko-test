@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <> 
       <HomePage />
-      <HomeProducts />
       <Production />
+      <HomeProducts />
       <Design />
       <CreateAccount />
       <ContactForm />

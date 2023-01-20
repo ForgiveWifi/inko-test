@@ -1,29 +1,40 @@
 import SingleImage from "./SingleImage";
 
-function FrontPreview({currentImage, makeCurrentImage, color, zIndex, frontImages}) {
+function FrontPreview({list, sku, color, pallet, selectFromList, noImage, zIndex }) {
+
+  const { width, height, offset } = pallet
+
   return (
     <>
       <div id="front-preview" className="flexbox" style={{ position: "absolute", zIndex: zIndex, width: 650, height: 650}}>
-        <div className="radius15" style={{ position: "absolute", backgroundColor: color.hex, width: "650px", height: "650px"}}></div>
-        <img 
-          src={"/front-blank-tee.png"} 
-          alt="front-blank-tee" className="radius15" 
-          style={{ position: "absolute", width: 650, height: 650, filter: color.light ? null : "brightness(200%)"}}
-          draggable="false" 
-        />
+        <div className="radius10" style={{ position: "absolute", backgroundColor: color?.hex || "white", width: "650px", height: "650px"}}></div>
+        {
+          sku ? 
+          <img 
+            src={`/front-${sku}.png`} 
+            alt={`front-${sku}`} className="radius10" 
+            style={{ position: "absolute", width: 650, height: 650 }}
+            draggable="false" 
+          /> :
+          null
+        }
         <div 
           className="flexbox radius5"
           style={{ 
           position: "relative", 
-          bottom: 12,
-          width: 320, 
-          height: 395, 
+          bottom: offset.front,
+          width: width * 20, 
+          height: height * 20, 
+          outline: "2px solid red",
           zIndex: 40
         }}>
           {
-            frontImages.map((design, i) => {
+            list.map((image, i) => {
+              if (image.placement === "back") {
+                return null
+              }
               return(
-                <SingleImage key={i} design={design} isImage={currentImage.art_file} selectImage={() => makeCurrentImage(design)} light={color.light} />
+                <SingleImage image={image} key={i} onClick={() => selectFromList(i)}  noImage={noImage} dark={color?.dark} /> 
               )
             })
           }

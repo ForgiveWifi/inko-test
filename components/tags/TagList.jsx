@@ -1,7 +1,7 @@
 import NoBox from "../ui/NoBox";
 import TagCard from "./TagCard";
 
-function TagList({tags, toggleChange, setSelected}) {
+function TagList({tags, toggleChange, setRemove, setEdit}) {
   if (!tags) {
     return null
   }
@@ -10,11 +10,11 @@ function TagList({tags, toggleChange, setSelected}) {
   }
   return (
     <>
-      <div className="full-width" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20, marginTop: 15}}>
+      <div className="full-width" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20, marginTop: 15}}>
         {
           tags.map((tag,i) => {
             return(
-              <TagCard key={i} tag={tag} toggleChange={toggleChange} select={() => setSelected(i)}/>
+              <TagCard key={i} tag={tag} toggleChange={toggleChange} remove={() => setRemove(i)} edit={() => setEdit(i)}/>
             )
           })
         }

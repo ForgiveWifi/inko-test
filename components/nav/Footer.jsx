@@ -1,5 +1,5 @@
 import Logo from "../ui/Logo"
-import { contactList } from "../data/contactList"
+import { contactList } from "../../data/contactList"
 import styles from "../../styles/Nav.module.css"
 
 function Footer() {

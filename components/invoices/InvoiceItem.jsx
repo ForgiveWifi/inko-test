@@ -5,12 +5,11 @@ import StatusBox from "./StatusBox";
 
 function InvoiceItem({invoice, select}) {
 
-  const { id, amount_due, status, due_date, lines} = invoice
+  const { number, id, amount_due, status, due_date, lines} = invoice
 
   const items = lines.data.reduce((accumulator, value) => {
     return accumulator + value.quantity;
   }, 0);
-
   return (
     <>
       <motion.button
@@ -20,6 +19,16 @@ function InvoiceItem({invoice, select}) {
         className="white-border background3 radius10 full-width space-between flexbox-row flex-wrap"
         style={{ height: 80, padding: 15}}
       > 
+        <div className="flexbox" style={{ width: 70 }}>
+          {
+            !number ? 
+            "--" : 
+            <div className="flexbox-row" style={{ gap: 5 }}>
+              <h5>#</h5>
+              <h3>{parseInt(number.slice(-4))}</h3>
+            </div>
+          }
+        </div>
         <StatusBox status={status} />
         <h5 className="text-center" style={{width: 300}}>{id}</h5>
       

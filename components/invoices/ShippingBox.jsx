@@ -8,7 +8,7 @@ function ShippingBox({ ship_address }) {
       <h5 className="light-grey-text" style={{ marginTop: 10}}>address:</h5>
       <div className="grey-text">{address.line1}</div> 
       <div className="grey-text">{address.line2}</div> 
-      <div className="grey-text">{`${address.city}, ${address.state}, ${address.postal_code}`}</div> 
+      <div className="grey-text">{`${address.city.toUpperCase()}, ${address.state.toUpperCase()}, ${address.postal_code}`}</div> 
     </div>
   );
 }

@@ -8,14 +8,33 @@ async function handler(req,res) {
 
   await dbConnect()
 
-  const { method } = req
+  const { method, query } = req
+  const { size } = query
   const stripe_id = await getStripeID(req,res)
-
+  
   switch (method) {
+    case "PATCH": 
+      try {
+        console.log(size)
+        console.log(req.body)
+        const design = req.body
+        const tag = await Tag.updateOne(
+          {_id: stripe_id, "tags.size": size },
+          { $set: { "tags.$.design": design } }
+        )
+        res.status(200).json(tag)
+      }
+      catch (err) {
+        console.log(err)
+        res.status(500).json(errorMessage(err.message))
+      }
+      break
     case "DELETE":
       try {
-        const { size } = req.query
-        const tag = await Tag.updateOne({_id: stripe_id}, { $pull: { tags: { size: size }}})
+        const tag = await Tag.updateOne(
+          {_id: stripe_id}, 
+          { $pull: { tags: { size: size }}}
+        )
         res.status(200).json(tag)
       }
       catch (err) {

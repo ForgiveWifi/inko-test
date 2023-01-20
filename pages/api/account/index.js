@@ -1,12 +1,9 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0"
-import dbConnect from "../../../lib/dbConnect"
 import errorMessage from "../../../lib/errorMesage"
 import getStripeID from "../../../lib/getStripeID"
 import stripe from "../../../lib/stripe"
 
 async function handler(req,res) {
-
-  await dbConnect()
 
   const { method } = req
   const stripe_id = await getStripeID(req,res)

@@ -6,67 +6,46 @@ import { deleteObject } from "firebase/compat/storage";
 import { uploadFirebase } from "../../lib/firebaseFunctions";
 import { showError, showLoading, updateError, updateSuccess } from "../ui/alerts";
 import { useUser } from '@auth0/nextjs-auth0/client'
-import DeleteButton from "../ui/DeleteButton";
+import useTag from "./useTag";
+import UploadTag from "./UploadTag";
+import { BiTrash } from "react-icons/bi";
 
 function AddTag({missingTags, toggleChange, close}) {
 
   const { user } = useUser()
   const ref = useRef(0)
 
-  const [image, setImage] = useState(null)
   const [size, setSize] = useState(null)
-  const [dimensions, setDimensions] = useState({})
-  const [loaded, setLoaded] = useState(false)
-
-  const small_pallet = size === "S" 
-
-  useEffect(() => {
-    if (image) {
-      const width = ref.current.width
-      const height = ref.current.height
-
-      const width_ratio = ( (small_pallet ? 210 : 280) / width )
-      const height_ratio = ( 210 / height)
-
-      const ratio = width_ratio <= height_ratio ? width_ratio : height_ratio
-
-      setDimensions({
-        width: width * ratio, 
-        height: height * ratio
-      })
-    }
-  }, [loaded, size])
+  const pallet = size === "S" ? { width: 210, height: 210} : { width: 280, height: 210}
+  const { image, setImage, dimensions, setLoaded, clear } = useTag(size, ref, pallet)
 
   async function submitTag() {
     if (!size) {
-      showError("no_size", null, "No size selected!")
+      showError("no-size", null, "No size selected!")
     } else 
     if (!image) {
       showError("no-tag", null, "No image!")
     } else {
     showLoading(size, null, `Uploading ${size} tag...`)
     try {
-      const tag = await uploadFirebase(user, "tags", `${size}-Tag-${image.name}`, image)
-      const { name, url } = tag
-      const { width, height } = dimensions
+      const { name, url, ref } = await uploadFirebase(user, "tags", `${size}-Tag-${image.name}`, image)
       const design = {
         placement: "Neck",
         art_file: name,
         art_url: url,
         thumbnail_url: url,
         underbase: true,
+        width: (dimensions.width / 70).toFixed(1), 
+        height: (dimensions.height / 70).toFixed(1),
         x_offset: 0,
         y_offset: 0,
-        width: (width / 70).toFixed(1), 
-        height: (height / 70).toFixed(1)
       }
-      await postTag(design, tag.ref)
+      await postTag(design, ref)
       updateSuccess(size, null, `Uploaded ${size} tag!`)
-      close()
       toggleChange()
+      close()
     }
     catch (err) {
-      console.log(err)
       updateError(size, `Server error: post ${size} tag`, "Contact us!")
     }}
   }
@@ -75,7 +54,7 @@ function AddTag({missingTags, toggleChange, close}) {
     try {
       const post = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/tags`, {
         size: size, 
-        pallet: small_pallet ? "Small" : "Standard",
+        pallet: size === "S" ? "Small" : "Standard",
         design: design
       })
       return(post)
@@ -85,17 +64,11 @@ function AddTag({missingTags, toggleChange, close}) {
     }
   }
 
-  function clear() {
-    setImage(null)
-    setLoaded(false)
-    setDimensions({})
-  }
-
   return (
     <>
-      <div className="flexbox-column full-width" style={{ maxWidth: 500, padding: 10, marginTop: 15 }} >
+      <div className="flexbox-column-start full-width" style={{ maxWidth: 500, padding: 10, marginTop: 15 }} >
         <h1>Add Tag</h1>
-        <h5 style={{ marginTop: 20}}>Select Size</h5>
+        <h5 style={{ marginTop: 20}}>Size</h5>
         <Select
           value={size}
           onChange={(v) => setSize(v)}
@@ -104,38 +77,19 @@ function AddTag({missingTags, toggleChange, close}) {
           icon={<HiSelector style={{ fill: "rgb(107, 116, 130)"}}/>}
           iconWidth={30}
         />
-        <div className="flexbox-column">
-          <h5 style={{ marginTop: 10}} >Image</h5>
-          <div className="flexbox" style={{height: 40}}>
-            { 
-              image ?
-              <DeleteButton onClick={() => clear()} /> :
-              <FileInput
-                placeholder="+"
-                value={image}
-                onChange={(e) => setImage(e)}
-                accept="image/png,image/jpeg"
-                aria-label={`Select file for neck tag`}>
-              </FileInput>
-            }
-          </div>
-        </div>
-        <div className="flexbox-column full-width" style={{marginTop: 5}}>
-          { small_pallet ? <div>3in x 3in</div> : <div>4in x 3in</div> }
-            <div id="neck-preview" className="flexbox white-outline radius10" style={{ width: small_pallet ? 210 : 280 , height: 210}}>
-              {
-                image && 
-                <img 
-                  ref={ref} 
-                  onLoad={() => setLoaded(true)}
-                  src={URL.createObjectURL(image)} 
-                  alt={image.name}
-                  style={loaded ? { width: dimensions.width, height: dimensions.height} : { display: "none"} } 
-                  draggable={false}/> 
-                }
-            </div>
-          <Button className="orange-button margin-left" style={{ marginTop: 10}} onClick={() => submitTag()}>submit</Button>
-        </div>
+        <UploadTag image={image} setImage={setImage} pallet={pallet} clear={clear}>
+          {
+            image ?
+            <img 
+              ref={ref} 
+              onLoad={() => setLoaded(true)}
+              src={URL.createObjectURL(image)} 
+              alt={image.name}
+              style={dimensions?.width ? { width: dimensions.width, height: dimensions.height} : { display: "none"} } 
+              draggable={false}/> : null
+          }
+        </UploadTag>
+        <Button className="margin-left" style={{ marginTop: 10}} onClick={() => submitTag()}>SUBMIT</Button>
       </div>
     </>
   );

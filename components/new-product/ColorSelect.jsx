@@ -1,34 +1,42 @@
 import { Tooltip } from '@mantine/core';
-import { colors } from "../data/old-colors";
+// import { colors } from "../data/old-colors";
+import colors from "../../data/colors"
 import { HiCheck } from "react-icons/hi"
 
-function ColorSelect({ attributes, setAttributes}) {
+function ColorSelect({ data, currentColor, setColor }) {
+  
   return (
     <>
       <div className="flexbox-row flex-wrap full-width" style={{ justifyContent: "center"}}>
+        
         {
-          colors.map((color,i) => {
+          data.map((color,i) => {
             
-            const selected = color.value === attributes.color.value
+            const selected = currentColor?.name === color
 
-            const {value, hex, light} = color
+            const { hex, dark } = colors[color]
 
             return(
               <>
-                <Tooltip label={value}>
+                <Tooltip label={color.replace(/\b[A-Z][A-Za-z]*\b/g,  (x) => x[0]+ x.slice(1).toLowerCase())}>
                   <button 
                     key={i}
-                    onClick={() => setAttributes({...attributes, color: color})} 
+                    onClick={() => setColor({
+                      name: color,
+                      hex: hex,
+                      dark: dark
+                    })}
                     className="flexbox shadow2" 
-                    style={{ borderRadius: 20, margin: "5px", backgroundColor: hex, width: 40, height: 40, outline: !selected ? "none" : light ? "3px solid black" : "3px solid white" }}
+                    style={{ borderRadius: 20, margin: "5px", backgroundColor: hex, width: 40, height: 40, outline: !selected ? "none" : dark ? "3px solid white" : "3px solid black"}}
                   >
-                    { selected && <HiCheck key={i} style={{ fontSize: 25, fill: light ? "black" : "white"}} />}
+                    { selected && <HiCheck key={i} style={{ fontSize: 28, fill: dark ? "white" : "black"}} />}
+                    {/* { selected && <HiCheck key={i} style={{ fontSize: 25, fill: light ? "black" : "white"}} />} */}
                   </button>
                 </Tooltip>
               </>
             )
           })
-        }
+        } 
       </div>
     </>
   );

@@ -29,7 +29,7 @@ function Invoices() {
       try {
         setLoading(true)
         const params = starting_after ? `&starting_after=${starting_after}` : ending_before ? `&ending_before=${ending_before}` : ""
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices?limit=7${params}`) 
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices?limit=10${params}`) 
         setInvoices(data.data)
         setHasMore(data.has_more) 
         setLoading(false)
@@ -55,7 +55,7 @@ function Invoices() {
 
   return (
     <>
-      <MyModal open={modal}>
+      <MyModal open={modal} size="xl">
         {
           modal ? 
           <>

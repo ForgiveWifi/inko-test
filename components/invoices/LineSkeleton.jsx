@@ -2,37 +2,32 @@ import Divider from "../ui/Divider";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-function ProductSkeleton({count}) {
+function LineSkeleton({count}) {
   return (
     Array(count).fill(0).map((_,i) => {
       return(
-        <div key={i} className="flexbox-row flex-wrap full-width background1 radius15 white-border shadow2" style={{ padding: "15px" }}>
+        <div key={i} className="flexbox-column background1 radius15 full-width">
 
-          <div style={{ width: 150, height: 150, marginRight: "15px", position: "relative", bottom: "5px" }}>
-            <Skeleton style={{ borderRadius: 10, width: 150, height: 150}} />
+          <div className="full-width" style={{ position: "relative", paddingBottom: "100%" }}>
+            <Skeleton style={{ position: "absolute", width: "100%", height: "100%", borderRadius: "15px 15px 0px 0px"}} />
           </div>
           
-          <div className="flexbox-column-start" style={{gap: 5}}>
-            <Skeleton className="radius5" style={{ width: "161px", height: "20px", marginBottom: "5px" }} />
-            <SkeletonLine />
-            <SkeletonLine />
-            <SkeletonLine />
-          </div>
+          <div className="flexbox-row full-width" style={{ padding: 15}}>
+            <div className="flexbox-column-start">
+              <Skeleton className="radius5" style={{ width: "140px", height: "20px", marginBottom: "5px" }} />
+              <Skeleton className="radius5" style={{ width: "100px", height: "20px", marginBottom: "5px" }} />
+            </div>
 
-          <div className="margin-left no-wrap" style={{ marginTop: "auto", marginRight: "5px", position: "relative", bottom: "6px" }}>
-            <Skeleton className="radius5" style={{ width: "70px", height: "20px" }} />
+            <div className="flexbox-column-end margin-left">
+              <Skeleton className="radius5" style={{ width: "70px", height: "20px" }} />
+              <Skeleton className="radius5" style={{ width: "40px", height: "20px" }} />
+            </div>
+            
           </div>
-
         </div>
       )
     })
   );
 }
 
-function SkeletonLine() {
-  return(
-    <Skeleton className="radius5" style={{ width: "120px" }} />
-  )
-}
-
-export default ProductSkeleton;
+export default LineSkeleton;

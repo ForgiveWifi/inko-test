@@ -17,34 +17,39 @@ function Line({product}) {
 
   return (
     <>
-      <div className="link flexbox-row flex-wrap full-width background1 radius15 white-border shadow2" style={{ padding: "15px", gap: 15}}>
+      <div className="flexbox-column flex-wrap background1 radius15">
         {
           loaded ? 
           null : 
-          <div className="flexbox radius10 background2" style={{ width: 150, height: 150}}>
+          <div className="flexbox white-background" style={{ width: "100%", paddingBottom: "100%", borderRadius: "15px 15px 0px 0px"}}>
           </div>
         }
         <img 
           src={images[0]} 
           alt={name} 
           onLoad={() => setLoaded(true)}
-          className="radius10" 
-          style={loaded ? { height: "150px"} : { display: "none"}} 
+          className="full-width radius10" 
+          style={loaded ? { borderRadius: "15px 15px 0px 0px"} : { display: "none"}} 
         /> 
-
-        <div className="flexbox-start">
-          <h3 >{name}</h3>
-          <h5>{toDollars(unit_price)}</h5>
-          <div>
-            <AttributeDisplay size={size} color={color} style={style}/>
+        <div className="flexbox-column-start full-width" style={{ padding: 15 }}>
+          <div className="flexbox-row">
+            <div>
+              <h3>{name}</h3>
+              <h5>{toDollars(unit_price)}</h5>
+            </div>
+            
+            
+            <div className="flexbox-column-end margin-left">
+              <h4>x {quantity}</h4>
+              { quantity !== 1 ? <h5>{toDollars(amount)}</h5> : null }
+            </div>
+            
           </div>
-        </div>
-        
-        <div className="flexbox-column" style={{ margin: "auto 5px 0px auto" }}>
-          <h5 className="margin-left">{toDollars(unit_price)}</h5>
-          <h5 className="margin-left">x {quantity}</h5>
-          <HorzDivider/>
-          <h5 >{toDollars(amount)}</h5>
+          {/* <div className="flexbox-row"> 
+            <div>
+              <AttributeDisplay quantity={quantity} size={size} color={color} style={style}/>
+            </div>
+          </div> */}
         </div>
       </div>
     </>

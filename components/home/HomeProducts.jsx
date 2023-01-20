@@ -4,18 +4,24 @@ import Image from "next/image";
 function HomeProducts() {
   const productlist = [
     {
-      name:"Bella + Canvas 3001",
+      name:"T-shirts",
       src: "/BellaCanvas_3001_White_04.jpg",
       alt: "Bella Canvas 3001 White",
       position: "0px -30px",
       link: "https://www.bellacanvas.com/product/3001/Unisex-Jersey-Short-Sleeve-Tee.html"
     },
-    // {
-    //   name: "Hoodies",
-    //   src: "/3719_Vintage-White_SF21_04.jpg",
-    //   alt: "3719 Vintage White SF21",
-    //   position: "0px -45px"
-    // },
+    {
+      name: "Hoodies",
+      src: "/3719_Vintage-White_SF21_04.jpg",
+      alt: "3719 Vintage White SF21",
+      position: "0px -45px"
+    },
+    {
+      name: "Crewnecks",
+      src: "/3719_Vintage-White_SF21_04.jpg",
+      alt: "3719 Vintage White SF21",
+      position: "0px -45px"
+    },
     // {
     //   name: "Tank Tops",
     //   src: "/3480_Athletic-Heather_SPSU22D2_04.jpg",

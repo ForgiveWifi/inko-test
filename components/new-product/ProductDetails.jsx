@@ -1,5 +1,4 @@
-import { NumberInput, TextInput } from "@mantine/core";
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { TextInput } from "@mantine/core";
 
 function ProductDetails({details, setDetails, error}) {
   return (
@@ -20,17 +19,6 @@ function ProductDetails({details, setDetails, error}) {
           placeholder="Optional"
           className="full-width"
         />
-        {/* <NumberInput 
-          label="Price"
-          value={details.price}
-          onChange={v => setDetails({...details, price: v})}
-          error={error && !details.price}
-          icon={<AttachMoneyIcon style={{ fill: "rgba(0, 0, 0, 0.6 )", marginLeft: "5px"}}/>}
-          iconWidth={25}
-          min={0}
-          precision={2}
-          hideControls
-        /> */}
       </div>
     </>
   );

@@ -19,7 +19,7 @@ function SizeSelect({sizes, setSizes, sizeOptions}) {
           }
 
           return(
-            <button key={i} onClick={select} className={selected ? "background2 radius15" : "background1 radius15"} style={{ padding: "3px 20px", outline: selected ? "3px solid white" : "none"}}>
+            <button key={i} onClick={select} className={selected ? "background2 radius5" : "background1 radius5"} style={{ padding: "3px 20px", outline: selected ? "2px solid white" : "none"}}>
               <h4>{size.toUpperCase()}</h4>
             </button>
            )

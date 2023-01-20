@@ -2,40 +2,41 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 import axios from "axios";
 import { showLoading, updateError, updateSuccess } from "../ui/alerts";
 import { deleteFirebase } from "../../lib/firebaseFunctions"
-import DeleteButton from "../ui/DeleteButton";
-import TagDisplay from "./TagDisplay";
 import HorzDivider from "../ui/HorzDivider";
 
-function DeleteTag({modal, tag, setSelected, toggleChange}) {
+function DeleteTag({tag, close, toggleChange}) {
 
   const { user } = useUser()
 
   async function deleteTag() {
+    const { size, design } = tag
     try {
-      const { size, design } = tag
       showLoading(size, null, `Deleting ${size} tag...`)
       await deleteFirebase(user, "tags", design.art_file)
       await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/tags/${size}`)
-      setSelected(null)
+      close()
       updateSuccess(size, null, `Deleted ${size} tag!`)
       toggleChange()
     }
     catch (err) {
+      console.log(err)
       updateError(size, `Server error: delete ${size} tag`, "Contact Us!")
     }
   }
-  if (!modal) {
+
+  if (!tag) {
     return null
   }
   return (
     <>
-      <div className="flexbox-column">
-        <h3 style={{ marginBottom: 10 }}>{`Delete ${tag.size} tag?`}</h3>
-        <TagDisplay design={tag.design} /> 
+      <div className="flexbox-column-start" style={{ width: 275}}>
+        <h3>{`Delete ${tag.size} tag?`}</h3>
         <HorzDivider margin="10px 0px"/>
         <div className="flexbox-row margin-left" style={{ gap: 5, marginTop: 5}}>
-          <button onClick={() => setSelected(null)} style={{ padding: "2px 6px" }}>cancel</button>
-          <DeleteButton onClick={() => deleteTag()} />
+          <button onClick={close} style={{ padding: "2px 6px" }}>cancel</button>
+          <button onClick={() => deleteTag()} className="flexbox margin-left radius5 red-background" style={{ padding: "2px 6px" }}>
+            delete
+          </button>
         </div>
       </div> 
     </>

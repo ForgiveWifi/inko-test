@@ -6,9 +6,6 @@ function Navbar() {
   return (
     <>
       <nav className="flexbox-row full-width" style={{ padding: 15 }}>
-        <Link href="/" className='flexbox link' style={{ marginLeft: 5}}>
-          <Logo />
-        </Link>
         <div className="margin-left">
           <NavLinks />
         </div>

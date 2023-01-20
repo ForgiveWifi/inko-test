@@ -54,7 +54,7 @@ export default function ContactForm() {
         </motion.div>
       <section className="flexbox-column full-width shadow1" style={{ maxWidth: "450px", backgroundColor: "white", borderRadius: "15px", padding: "25px 35px 35px", zIndex: "2"}}>
         <div className="flexbox" style={{ position: "relative", width: 200, height: 37.5, marginBottom: 10 }}>
-          <Image src="/inko-studio-logo-orange.png" alt="Inkhouse Logo" fill={true} style={{ objectFit: "contain" }}/>
+          <Image src="/inko-studio-logo-orange.png" alt="Inko Studios Logo" fill={true} style={{ objectFit: "contain" }}/>
         </div>
         <form ref={form} onSubmit={sendEmail} className="form-grid full-width" autoComplete="off" >
             

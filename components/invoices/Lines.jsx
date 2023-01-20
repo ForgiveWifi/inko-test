@@ -46,20 +46,22 @@ function Lines({lines}) {
   }
   if (load) {
     return(
-      <div className="flexbox-column full-width" style={{ gap: 10, marginTop: 10 }}>
+      <div className="product-grid full-width" style={{ gap: 15, marginTop: 15 }}>
         <LineSkeleton count={lines.total_count} />
+        {lines.total_count === 1 ? <div></div> : null}
       </div>
     )
   }
   return (
     <>
-      <div className="flexbox-column full-width" style={{ gap: 10, marginTop: 10 }}>
+      <div className="product-grid full-width" style={{ gap: 15, marginTop: 15 }}>
         {/* <LineSkeleton /> */}
         {
           products.map( (product,i) => {
             return <Line key={i} product={product} />
           })
         }
+        {products.length === 1 ? <div></div> : null}
       </div>
     </>
   );

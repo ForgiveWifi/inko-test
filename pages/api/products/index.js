@@ -40,7 +40,6 @@ async function handler(req,res) {
     case 'POST':
       try {
         const {name, description, sizes, attributes, images, designs} = req.body
-        console.log("description", description)
         const id = nanoid()
   
         const new_product = {
@@ -66,8 +65,7 @@ async function handler(req,res) {
           ids.unshift({ size: sizes[i], id: id})
         }
 
-        console.log(description)
-        const product = await Product.create({
+        await Product.create({
           _id: id,
           name: name,
           description: description || null,
@@ -78,11 +76,9 @@ async function handler(req,res) {
           designs: designs, 
           images: images
         })
-        console.log("product", product)
         res.status(200).json({message: "Success!"}) 
       }
       catch (err) {
-        console.log(err)
         res.status(500).json(errorMessage(err.message))
       }
       break

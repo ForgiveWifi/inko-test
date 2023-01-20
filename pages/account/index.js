@@ -1,23 +1,24 @@
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
-import { Button } from "@mantine/core";
+import { button } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "../../components/ui/Loading"
-import AddressForm from "../../components/profile/AddressForm";
+import AddressForm from "../../components/account/AddressForm";
 import { showError, showLoading, updateError, updateSuccess } from "../../components/ui/alerts";
 import { TextInput } from "@mantine/core";
 import isEqual from 'lodash.isequal'
 import AccountLayout from '../../layouts/AccountLayout';
 import Heading from "../../components/ui/Heading"
+import ShippingSelect from '../../components/ui/ShippingSelect';
 
-function Profile() {
+function account() {
 
-  const profileBlank = {
+  const AccountBlank = {
     first_name: "",
     last_name: "",
     company: ""
   }
-  const shippingBlank = {
+  const ShippingBlank = {
     line1: "",
     line2: "",
     city: "",
@@ -26,51 +27,53 @@ function Profile() {
   }
 
   const { user } = useUser()
-  const [profile, setProfile] = useState(profileBlank)
-  const [profileRef, setProfileRef] = useState(profileBlank)
+  const [account, setAccount] = useState(AccountBlank)
+  const [accountRef, setAccountRef] = useState(AccountBlank)
   // const [address, setAddress] = useState({})
-  const [shipping, setShipping] = useState(shippingBlank)
-  const [shippingRef, setShippingRef] = useState(shippingBlank)
+  const [shipping, setShipping] = useState(ShippingBlank)
+  const [shippingRef, setShippingRef] = useState(ShippingBlank)
   const [loading, setLoading] = useState(false)
-  const error = false
 
-  const save = (!isEqual(profile, profileRef) || !isEqual(shipping, shippingRef)) && !loading
+  const save = (!isEqual(account, accountRef) || !isEqual(shipping, shippingRef)) && !loading
 
   useEffect(() => {
-    getProfile()
-    async function getProfile() {
+    getAccount()
+    async function getAccount() {
       try {
         setLoading(true)
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/account`)
-        const {first_name, last_name, company} = res.data.metadata
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/account`)
+        console.log(data)
+        const { first_name, last_name, company, shipping_provider } = data.metadata
         const account = {
           first_name: first_name || "",
           last_name: last_name || "",
           company: company || "",
+          shipping_provider: shipping_provider || ""
         }
-        setProfile(account)
-        setProfileRef(account)
-        if (res.data.shipping) {
-          setShipping(res.data.shipping.address)
-          setShippingRef(res.data.shipping.address)
+        setAccount(account)
+        setAccountRef(account)
+        if (data.shipping) {
+          setShipping(data.shipping.address)
+          setShippingRef(data.shipping.address)
         }
         setLoading(false)
       }
       catch (err) {
-        showError("profile", "Server error: profile", "Contact Us!")
+        console.log(err)
+        showError("account", "Server error: account", "Contact Us!")
       }
     }
   },[])
 
-  async function saveProfile() {
+  async function saveAccount() {
     try {
       showLoading("shipping", null, "Saving...")
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/account`, { 
         // address: address,
         shipping: shipping, 
-        metadata: profile
+        metadata: account
       })
-      setProfileRef(profile)
+      setAccountRef(account)
       setShippingRef(shipping)
       updateSuccess("shipping", null, "Changes has been saved!") 
     }
@@ -80,7 +83,7 @@ function Profile() {
   }
 
   function revert() {
-    setProfile(profileRef)
+    setAccount(accountRef)
     setShipping(shippingRef)
   }
 
@@ -99,48 +102,52 @@ function Profile() {
           
           <TextInput 
             label="first name"
-            value={profile.first_name}
-            onChange={(e) => setProfile({...profile, first_name: e.currentTarget.value})}
-            error={error}
+            value={account.first_name}
+            onChange={(e) => setAccount({...account, first_name: e.currentTarget.value})}
+            error={false}
             autoComplete="off"
           />
           <TextInput 
             label="last name"
-            value={profile.last_name}
-            onChange={(e) => setProfile({...profile, last_name: e.currentTarget.value})}
-            error={error}
+            value={account.last_name}
+            onChange={(e) => setAccount({...account, last_name: e.currentTarget.value})}
+            error={false}
             autoComplete="off"
           />
           <TextInput
             label="company"
-            value={profile.company}
-            onChange={(e) => setProfile({...profile, company: e.currentTarget.value})}
-            error={error}
+            value={account.company}
+            onChange={(e) => setAccount({...account, company: e.currentTarget.value})}
+            error={false}
             autoComplete="off"
           />
           </div>
           <h3 style={{ marginTop: 30}}>Shipping Address</h3>
-          <AddressForm shipping={shipping} setShipping={setShipping} error={error} />
+          <AddressForm shipping={shipping} setShipping={setShipping} error={false} />
           {/* <h2>Address</h2>
           <AddressForm shipping={address} setShipping={setAddress} error={error} /> */}
+          <h3 style={{ marginTop: 30}}>Shipping Provider</h3>
+          <ShippingSelect value={account.shipping_provider}  onChange={(v) => setAccount({...account, shipping_provider: v})}/>
+          <div style={{ height: 100 }}>
           {
             save &&
             <div className="flexbox-row" style={{ marginTop: 20, gap: 10}}>
-              <Button onClick={() => revert()}>
+              <button className="white-background" onClick={() => revert()}>
                 cancel
-              </Button>
-              <Button onClick={() => saveProfile()} style={{ marginRight: 10}}>
-                save
-              </Button>
+              </button>
+              <button className="white-border" onClick={() => saveAccount()} style={{ marginRight: 10}}>
+                Save
+              </button>
             </div>
           }
+          </div>
         </div>
       }
     </>
   );
 }
 
-Profile.PageLayout = AccountLayout
+account.PageLayout = AccountLayout
 
-export default withPageAuthRequired(Profile)
+export default withPageAuthRequired(account)
 

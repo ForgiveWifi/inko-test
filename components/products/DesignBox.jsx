@@ -5,7 +5,7 @@ function DesignBox({ design }) {
 
   return (
     <>
-      <div className="flexbox-column full-width white-outline radius5 margin-auto" style={{ maxWidth: 300, padding: 10 }}>
+      <div className="flexbox-column full-width white-outline radius10 margin-auto" style={{ maxWidth: 300, padding: 10 }}>
 
         <h5 className="background2 radius10" style={{ padding: "2px 10px", marginBottom: 10 }}>{design.placement}</h5>
 

@@ -13,6 +13,10 @@ async function handler(req,res) {
       try {
         const { id } = req.query
         const product = await stripe.products.retrieve(id)
+        if (product.metadata.stripe_id !== stripe_id) {
+          res.status(401).json(errorMessage("Unauthorized"))
+          return
+        }
         if (product) {
           res.status(200).json(product)
         } else { 

@@ -50,7 +50,7 @@ function Production() {
           <p 
             className="full-width text-center" 
             style={{ maxWidth: "450px", marginTop: "15px"}}>
-            inko products are printed on premium garments, locally in the US using advanced printers.  Using inkjet technology, we are able to produce high-resolution images with vibrant colors on a variety of garments like t-shirts, hoodies, and other fabrics.   With a wide range of colors, we offer printing solution for your needs.   
+            inko products are printed on premium garments, locally in the US using advanced printers.  Using inkjet technology, we are able to produce high-resolution images with vibrant colors on a variety of garments like t-shirts, hoodies, and other fabrics.   With a wide range of colors, we offer printing solutions for all your needs.   
           </p>
         </motion.div>
         

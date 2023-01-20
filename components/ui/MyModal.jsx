@@ -1,13 +1,13 @@
 import { Modal } from "@mantine/core";
 
-function MyModal({children, open}) {
+function MyModal({children, open, size}) {
   return (
     <Modal
       opened={open}
       closeOnClickOutside={false}
       withCloseButton={false} 
       onClose={() => null}
-      size="auto" 
+      size={ size || "auto"} 
       centered 
       overlayBlur={3} 
       transitionDuration={300}
