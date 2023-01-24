@@ -29,7 +29,7 @@ function Invoices() {
       try {
         setLoading(true)
         const params = starting_after ? `&starting_after=${starting_after}` : ending_before ? `&ending_before=${ending_before}` : ""
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices?limit=10${params}`) 
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices?limit=8${params}`) 
         setInvoices(data.data)
         setHasMore(data.has_more) 
         setLoading(false)

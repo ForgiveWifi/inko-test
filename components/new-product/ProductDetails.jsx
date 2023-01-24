@@ -3,7 +3,7 @@ import { TextInput } from "@mantine/core";
 function ProductDetails({details, setDetails, error}) {
   return (
     <>
-      <div className="flexbox-start full-width">
+      <div className="flexbox-start full-width" style={{ gap: 10}}>
         <TextInput 
           label="product name"
           value={details.name}

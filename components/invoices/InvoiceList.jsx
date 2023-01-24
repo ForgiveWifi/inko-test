@@ -8,7 +8,7 @@ function InvoiceList({loading, invoices, setSelected}) {
   if (loading || !invoices) {
     return(
       <div className="flexbox-column full-width" style={{ gap: 10 }}>
-        <InvoiceSkeleton count={7} /> 
+        <InvoiceSkeleton count={8} /> 
       </div>
     )
   } else

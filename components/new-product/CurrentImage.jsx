@@ -10,80 +10,74 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
   const [dragOutline, setDragOutline] = useState(false)
   const [loaded, setLoaded] = useState(false)
   
-  const {art_file, width, height, x_offset, y_offset, placement } = currentImage
+  const {art_file, art_url, width, height, x_offset, y_offset, placement } = currentImage
 
   const pallet_width = pallet.width * 20
-  const pallet_height = pallet.height * 20
 
   useEffect(() => {
-    if (currentImage && ref.current) {
-      if (!currentImage.width) {
-        console.log(ref.current)
-        const w = ref.current.width
-        const h = ref.current.height
+    if (!currentImage.width && ref.current) {
+      const w = ref.current.width
+      const h = ref.current.height
 
-        console.log(w)
-        console.log(h)
-        const ratio = scale(w, h, { width: 160, height: 200 })
+      const ratio = scale(w, h, { width: 160, height: 200 })
 
-        setCurrentImage({
-          ...currentImage,
-          width: (w * ratio), 
-          height: (h * ratio),
-          x_offset: (pallet_width - w * ratio ) / 2
-        })
-      }
+      setCurrentImage({
+        ...currentImage,
+        width: (w * ratio), 
+        height: (h * ratio),
+        x_offset: (pallet_width - w * ratio ) / 2
+      })
     }
   }, [loaded])
 
-  useEffect(() => {
-    function handleArrows(event) {
-      switch (event.keyCode) {
-        case 37: // left
-          if (x_offset > 0) {
-            if (x_offset <= 1) {
-              setCurrentImage({ ...currentImage, x_offset: 0 })
-            } else
-            setCurrentImage({ ...currentImage, x_offset: x_offset - 1 })
-          }
-          break;
-        case 38: // up 
-          event.preventDefault()
-          if (y_offset > 0) {
-            if (y_offset <= 1) {
-              setCurrentImage({ ...currentImage, y_offset: 0 })
-            } else
-            setCurrentImage({ ...currentImage, y_offset: y_offset + 1 })
-          }
-          break;
-        case 39: // right
-          if (x_offset < pallet_width - width ) {
-            if (x_offset >= (pallet_width - 1) - width) {
-              setCurrentImage({ ...currentImage, x_offset: pallet_width - width })
-            } else
-            setCurrentImage({ ...currentImage, x_offset: x_offset + 1 })
-          }
-          break;
-        case 40: // down
-          event.preventDefault()
-          if (y_offset < pallet_height - height) {
-            if (y_offset >= (pallet_height - 1) - height) {
-              setCurrentImage({ ...currentImage, y_offset: pallet_height - height })
-            } else
-            setCurrentImage({ ...currentImage, y_offset: y_offset - 1 })
-          }
-          break;
-      }
-    }
-    if (art_file) {
-      document.addEventListener('keydown', handleArrows);
-    }
-    else {
-      return () => {
-        document.removeEventListener('keydown', handleArrows);
-      };
-    }
-  },[art_file])
+  // useEffect(() => {
+  //   function handleArrows(event) {
+  //     switch (event.keyCode) {
+  //       case 37: // left
+  //         if (x_offset > 0) {
+  //           if (x_offset <= 1) {
+  //             setCurrentImage({ ...currentImage, x_offset: 0 })
+  //           } else
+  //           setCurrentImage({ ...currentImage, x_offset: x_offset - 1 })
+  //         }
+  //         break;
+  //       case 38: // up 
+  //         event.preventDefault()
+  //         if (y_offset > 0) {
+  //           if (y_offset <= 1) {
+  //             setCurrentImage({ ...currentImage, y_offset: 0 })
+  //           } else
+  //           setCurrentImage({ ...currentImage, y_offset: y_offset + 1 })
+  //         }
+  //         break;
+  //       case 39: // right
+  //         if (x_offset < pallet_width - width ) {
+  //           if (x_offset >= (pallet_width - 1) - width) {
+  //             setCurrentImage({ ...currentImage, x_offset: pallet_width - width })
+  //           } else
+  //           setCurrentImage({ ...currentImage, x_offset: x_offset + 1 })
+  //         }
+  //         break;
+  //       case 40: // down
+  //         event.preventDefault()
+  //         if (y_offset < pallet_height - height) {
+  //           if (y_offset >= (pallet_height - 1) - height) {
+  //             setCurrentImage({ ...currentImage, y_offset: pallet_height - height })
+  //           } else
+  //           setCurrentImage({ ...currentImage, y_offset: y_offset - 1 })
+  //         }
+  //         break;
+  //     }
+  //   }
+  //   if (art_file) {
+  //     document.addEventListener('keydown', handleArrows);
+  //   }
+  //   else {
+  //     return () => {
+  //       document.removeEventListener('keydown', handleArrows);
+  //     };
+  //   }
+  // },[art_file])
 
   return (
     <>
@@ -108,8 +102,8 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
           onResizeStop={(e, direction, ref, delta, position) => {
             setCurrentImage({
               ...currentImage,
-              width: parseInt(ref.style.width, 10),
-              height: parseInt(ref.style.height, 10),
+              width: parseInt(ref.style.width),
+              height: parseInt(ref.style.height),
               x_offset: position.x,
               y_offset: -(position.y)
             });
@@ -117,7 +111,8 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
           }}
           lockAspectRatio={true}
           bounds="parent"
-          minWidth={20}
+          minWidth={loaded ? 20 : 0}
+          minHeight={loaded ? 20 : 0}
           enableResizing={{ top: false, bottom: false, left: false, right: false, topRight: true, topLeft: true, bottomRight: true, bottomLeft: true }}
           resizeHandleComponent={{
             topRight: <ResizeBox dark={dark}/>,
@@ -125,24 +120,22 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
             bottomRight: <ResizeBox dark={dark}/>,
             bottomLeft: <ResizeBox dark={dark}/>
           }}
-          onDragStart={() => {
-            setDragOutline(true)
-          }}
-          onResizeStart={() => {
-            setDragOutline(true)
-          }}
+          onDragStart={() => setDragOutline(true) }
+          onResizeStart={() => setDragOutline(true)}
           style={{
+            display: "flexbox",
+            position: "absolute",
             outline: art_file ? `2px solid ${dark ? "white" : "black"}` : null,
           }}
         >
           <img
             ref={ref}
             draggable="false"
-            src={URL.createObjectURL(art_file)}
-            alt={art_file.name}
-            className="full-width"
+            src={ art_file instanceof File ? URL.createObjectURL(art_file) : art_url }
+            alt={ art_file instanceof File ? art_file.name : art_file}
             onLoad={() => setLoaded(true)}
-            style={{ display: !loaded ? "none" : null}}
+            className="full-width full-height"
+            style={{display: loaded ? null: "none"}}
           />
         </Rnd>
       </div>

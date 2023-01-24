@@ -14,7 +14,7 @@ export default function Home() {
       <Production />
       <HomeProducts />
       <Design />
-      <CreateAccount />
+      {/* <CreateAccount /> */}
       <ContactForm />
       <ScrollButton /> 
     </>

@@ -10,7 +10,7 @@ import { showError } from '../ui/alerts';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 
-export function ImageUpload({ current, addFile}) {
+export function ImageUpload({ current, addFile, addCurrentToList}) {
 
   const openRef = useRef(null);
 
@@ -20,10 +20,13 @@ export function ImageUpload({ current, addFile}) {
         name='File Upload'
         openRef={openRef}
         onDrop={(file) => {
+          // if (current.art_file) {
+          //   addCurrentToList()
+          // }
           addFile(file)
           cleanNotifications()
         }}
-        onReject={() => showError("file-error", `File is too large or not a png/jpeg`)}
+        onReject={() => showError("file-error", null, `File error`)}
         radius="md"
         accept={['image/png', 'image/jpeg']}
         maxFiles={1}

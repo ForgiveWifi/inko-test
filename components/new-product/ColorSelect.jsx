@@ -4,7 +4,6 @@ import colors from "../../data/colors"
 import { HiCheck } from "react-icons/hi"
 
 function ColorSelect({ data, currentColor, setColor }) {
-  
   return (
     <>
       <div className="flexbox-row flex-wrap full-width" style={{ justifyContent: "center"}}>

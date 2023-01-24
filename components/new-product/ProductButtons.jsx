@@ -50,7 +50,7 @@ function ProductButtons({clearCurrent, addCurrentToList, currentImage, setCurren
 
           <div className='flexbox-column-start'>
             <h5 className='grey-text' style={{ marginLeft: 5}}>{(width / 20).toFixed(1)} in.</h5>
-            <h5 className='grey-text' style={{ marginLeft: 5}}>{height / 20} in.</h5>
+            <h5 className='grey-text' style={{ marginLeft: 5}}>{(height / 20).toFixed(1)} in.</h5>
           </div>
         </div>
       </div>

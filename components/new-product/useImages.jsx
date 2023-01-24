@@ -1,12 +1,12 @@
 import { width } from "@mui/system";
 import { useState } from "react";
-import { scale } from "../../lib/functions";
+import { scale, unformatDesign } from "../../lib/functions";
 
-function useImages(pallet) {
+function useImages(pallet, product) {
 
-  const blank = { placement: "front", width: 160, x_offset: (pallet.width * 20 - 160) / 2, y_offset:0 }
+  const blank = { placement: "front", x_offset: (pallet.width * 20 - 160) / 2, y_offset: 0 }
   const [current, setCurrent] = useState(blank)
-  const [list, setList] = useState([])
+  const [list, setList] = useState(product ? product.designs.map(design => unformatDesign(design, pallet)) : [])
 
   function addFile(file) {
     setCurrent({...current, art_file: file[0]})
@@ -21,8 +21,8 @@ function useImages(pallet) {
   }
 
   function addCurrentToList() {
-      setList([...list, current])
-      setCurrent({...blank, placement: current.placement});
+    setList([...list, current])
+    clearCurrent()
   }
 
   function selectFromList(index) {
@@ -33,22 +33,21 @@ function useImages(pallet) {
   } 
 
   function scaleDimensions(previousPallet) { 
-    // console.log(previousPallet)
-    // const { width, height } = previousPallet
-    // const ratio = scale(width, height, pallet)
-    // console.log(ratio)
-    // function scaleImage(image) {
-    //   const { width, height, x_offset, y_offset } = image
-    //   return({
-    //     ...image,
-    //     width: width * ratio,
-    //     heigth: height * ratio,
-    //     x_offset: x_offset * ratio,
-    //     y_offset: y_offset * ratio
-    //   })
-    // }
-    // setCurrent(scaleImage(current))
-    // setList(list.map((image) => scaleImage(image)))
+    const { width, height } = previousPallet
+    const ratio = scale(width, height, pallet)
+
+    function scaleImage(image) {
+      const { width, height, x_offset, y_offset } = image
+      return({
+        ...image,
+        width: width * ratio,
+        height: height * ratio,
+        x_offset: x_offset * ratio,
+        y_offset: y_offset * ratio
+      })
+    }
+    setCurrent(scaleImage(current))
+    setList(list.map((image) => scaleImage(image)))
   }
   
   return { current, setCurrent, list, addFile, clearCurrent, clearList, addCurrentToList, selectFromList, scaleDimensions }

@@ -3,7 +3,7 @@ import sortSizes from "../../lib/sortSizes";
 function SizeSelect({sizes, setSizes, sizeOptions}) {
   return (
     <>
-      <div className="flexbox-row flex-wrap" style={{ maxWidth: "100%", justifyContent: "center", gap: "8px", marginTop: '5px'}}> 
+      <div className="flexbox-row-start flex-wrap" style={{ gap: "8px", marginTop: '5px'}}> 
       {
         sizeOptions.map((size,i) => {
 

@@ -11,26 +11,45 @@ import PriceList from "./PriceList";
 import ProductMenu from "./ProductMenu"
 import MyModal from "../ui/MyModal";
 import ProductPreview from "../new-product/ProductPreview"
+import CloseButton from "../ui/CloseButton";
+import { findLabel } from "../../lib/functions";
+import DeleteModal from "../ui/DeleteModal";
+import { showLoading, updateSuccess, updateError } from "../ui/alerts";
+import axios from "axios";
+import NewProduct from "../new-product/NewProduct";
 
-function ProductDisplay({product}) {
+function ProductDisplay({product, close, refresh}) {
 
   // const [currentSlide, setCurrentSlide] = useState(0)
   const [loaded, setLoaded] = useState(false)
   const [edit, setEdit] = useState(false)
+  const [remove, setRemove] = useState(false)
 
   const { _id, name, color, style, description, sizes, images, created_at,} = product
 
-  function findSKU(sku) {
-    const result = garments.find(item => item.value.sku === sku);
-    return result ? result.label : null;
+  async function deleteProduct() {
+    setRemove(false)
+    showLoading(_id, "Deleting...", _id)
+    try {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/products/${_id}`)
+      close()
+      refresh()
+      updateSuccess(_id, "Product has been deleted!", _id)
+    }
+    catch (err) {
+      updateError(_id, "Server Error: delete product", "Contact us!")
+    }
   }
   
   return (
     <>
       <MyModal open={edit}>
-        <h1>Edit</h1>
-        
+        <CloseButton onClick={() => setEdit(false)} />
+        <NewProduct text="Edit Product" product={product} close={() => setEdit(false)} refresh={refresh}/>
       </MyModal>
+      <DeleteModal text={name} open={remove} cancel={() => setRemove(false)} confirm={deleteProduct}/>
+
+      
       <div className="flexbox-column flex-wrap" style={{ maxWidth: 650, marginTop: 5, padding: 30 }}>
         
         {/* <ProductCarousel images={images} name={name} setCurrentSlide={setCurrentSlide}/> */}
@@ -43,12 +62,12 @@ function ProductDisplay({product}) {
             <h2 className="margin-right" style={{ height: 55, fontSize: "40px"}}>{name}</h2>
             <h6>{description}</h6>
             <div style={{ position: "absolute", top: 8, right: 0 }}>
-              <ProductMenu name={name} edit={() => setEdit(true)}/>
+              <ProductMenu file={images[0]} name={name} edit={() => setEdit(true)} remove={() => setRemove(true)} />
             </div>
           </div>
         
           <h5>style:</h5> 
-          <div style={{ marginBottom: 5 }}>{findSKU(style)}</div>
+          <div style={{ marginBottom: 5 }}>{findLabel(style)}</div>
           <h5>color:</h5> 
           <div className="flexbox-row">
           <div>{color}</div>

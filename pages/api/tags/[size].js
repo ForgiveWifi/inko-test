@@ -15,8 +15,6 @@ async function handler(req,res) {
   switch (method) {
     case "PATCH": 
       try {
-        console.log(size)
-        console.log(req.body)
         const design = req.body
         const tag = await Tag.updateOne(
           {_id: stripe_id, "tags.size": size },
@@ -25,7 +23,6 @@ async function handler(req,res) {
         res.status(200).json(tag)
       }
       catch (err) {
-        console.log(err)
         res.status(500).json(errorMessage(err.message))
       }
       break

@@ -9,6 +9,7 @@ export default {
   },
   "ASH": {
     hex: "#DFDEDA",
+    dark: false
   },
   "ASPHALT": {
     hex: "#505356",

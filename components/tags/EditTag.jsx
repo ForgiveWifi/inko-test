@@ -9,6 +9,7 @@ import useTag from './useTag';
 import { Button, FileInput } from '@mantine/core';
 import { BiTrash } from 'react-icons/bi';
 import { ImageUpload } from '../new-product/ImageUpload';
+import UpdateButtons from '../ui/EditButtons';
 
 function EditTag({tag, close, toggleChange}) {
 
@@ -44,7 +45,6 @@ function EditTag({tag, close, toggleChange}) {
       toggleChange()
     }
     catch (err) {
-      console.log(err)
       updateError(size, `Server error: edit ${size} tag`, "Contact Us!")
     }
   }
@@ -56,7 +56,7 @@ function EditTag({tag, close, toggleChange}) {
     <>
       <div className="flexbox-column-start" style={{ padding: 10 }}>
         <h2>{`Edit Tag`}</h2>
-        <h5 style={{ marginTop: 20}}>Size</h5>
+        <h5 style={{ marginTop: 10}}>Size</h5>
         <div>{size}</div>
         <UploadTag image={image} setImage={setImage} pallet={pallet} clear={clear}>
           {
@@ -70,12 +70,7 @@ function EditTag({tag, close, toggleChange}) {
               draggable={false}/> : null
           }
         </UploadTag>
-        <div className="flexbox-row margin-left" style={{ gap: 5, marginTop: 5}}>
-          <button onClick={close} style={{ padding: "2px 6px" }}>cancel</button>
-          <button onClick={editTag} className="flexbox margin-left radius5 background1" style={{ padding: "2px 6px" }}>
-            update
-          </button>
-        </div>
+        <UpdateButtons cancel={close} update={editTag} />
       </div> 
     </>
   );

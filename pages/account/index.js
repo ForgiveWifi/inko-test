@@ -10,8 +10,9 @@ import isEqual from 'lodash.isequal'
 import AccountLayout from '../../layouts/AccountLayout';
 import Heading from "../../components/ui/Heading"
 import ShippingSelect from '../../components/ui/ShippingSelect';
+import EditButtons from '../../components/ui/EditButtons';
 
-function account() {
+function Account() {
 
   const AccountBlank = {
     first_name: "",
@@ -65,7 +66,7 @@ function account() {
     }
   },[])
 
-  async function saveAccount() {
+  async function edit() {
     try {
       showLoading("shipping", null, "Saving...")
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/account`, { 
@@ -131,14 +132,7 @@ function account() {
           <div style={{ height: 100 }}>
           {
             save &&
-            <div className="flexbox-row" style={{ marginTop: 20, gap: 10}}>
-              <button className="white-background" onClick={() => revert()}>
-                cancel
-              </button>
-              <button className="white-border" onClick={() => saveAccount()} style={{ marginRight: 10}}>
-                Save
-              </button>
-            </div>
+            <EditButtons cancel={revert} edit={edit}/>
           }
           </div>
         </div>
@@ -147,7 +141,5 @@ function account() {
   );
 }
 
-account.PageLayout = AccountLayout
-
-export default withPageAuthRequired(account)
+export default withPageAuthRequired(Account)
 

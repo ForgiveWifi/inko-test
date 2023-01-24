@@ -25,7 +25,6 @@ function FrontPreview({list, sku, color, pallet, selectFromList, noImage, zIndex
           bottom: offset.front,
           width: width * 20, 
           height: height * 20, 
-          outline: "2px solid red",
           zIndex: 40
         }}>
           {

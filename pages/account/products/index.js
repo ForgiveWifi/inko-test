@@ -18,6 +18,7 @@ function Products() {
   const [products, setProducts] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const page = router.query.page
@@ -37,10 +38,9 @@ function Products() {
       }
     }
     fetchProducts()
-  }, [page])
+  }, [page, refresh])
 
   const modal = selected !== null
-
 
   return (
     <>
@@ -50,7 +50,7 @@ function Products() {
           modal ?
           <>
             <CloseButton onClick={() => setSelected(null)} />
-            <ProductDisplay loading={false} product={products[selected]} />
+            <ProductDisplay product={products[selected]} close={() => setSelected(null)} refresh={() => setRefresh(!refresh)}/>
           </> :
           null
         }

@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { useHover } from '@mantine/hooks';
-import EditIcon from '@mui/icons-material/Edit';
 
 function SingleImage({ image, onClick, noImage, dark }) {
 
   const { hovered, ref } = useHover()
 
   const border = hovered && noImage
-  const { art_file, width, x_offset, y_offset } = image
+  const { art_file, art_url, width, height, x_offset, y_offset } = image
+  const isFile = art_file instanceof File
 
   return (
     <>
@@ -17,18 +16,16 @@ function SingleImage({ image, onClick, noImage, dark }) {
         className="flexbox"
         style={{
           cursor: "pointer",
-          outline: "2px solid red", // border ? `2px dashed ${dark ? "white" : "black" }` : null,
+          outline: border ? `1px dashed ${dark ? "white" : "black" }` : null,
           position: "absolute",
           left: x_offset,
           top: -(y_offset),
         }}>
         <img 
           draggable="false"
-          src={URL.createObjectURL(art_file)} 
-          alt={art_file.name}
-          style={{
-            width: width,
-          }}
+          src={ isFile ? URL.createObjectURL(art_file) : art_url }
+          alt={ isFile ? art_file.name : art_file}
+          style={{ width: parseInt(width), height: parseInt(height) }}
         />
       </button>
     </>

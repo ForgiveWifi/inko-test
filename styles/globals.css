@@ -429,18 +429,18 @@ button:hover {
   color: white
 }
 .mantine-Select-item{
-  color: rgb(107, 116, 130);
+  color: rgba(0, 0, 0, 0.6);
 }
 .mantine-Select-rightSection{
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 .mantine-Select-input{
-  color: rgb(107, 116, 130);
+  color: rgba(0, 0, 0, 0.6);
   border: 1.5px solid white;
   border-radius: 8px;
 }
 .mantine-Select-input:focus{
-  border: 1.5px solid grey;
+  border: 1.5px solid rgba(0, 0, 0, 0.6);
 }
 .mantine-Select-invalid {
   border: 1.5px solid red

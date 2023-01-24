@@ -12,6 +12,7 @@ import Heading from '../../components/ui/Heading';
 import DeleteTag from '../../components/tags/DeleteTag';
 import MyModal from '../../components/ui/MyModal';
 import EditTag from '../../components/tags/EditTag';
+import DeleteModal from '../../components/ui/DeleteModal';
 
 function Tags() { 
 
